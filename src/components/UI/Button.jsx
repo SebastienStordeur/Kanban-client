@@ -2,7 +2,12 @@ import React from "react";
 
 const Button = (props) => {
   return (
-    <button className={`flex justify-center items-center text-white ${props.className || ""}`}>{props.children}</button>
+    <button
+      className={`flex justify-center items-center text-white cursor-pointer ${props.className || ""}`}
+      type={props.type || "button"}
+    >
+      {props.children}
+    </button>
   );
 };
 

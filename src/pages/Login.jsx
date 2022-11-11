@@ -3,10 +3,9 @@ import LoginForm from "../components/forms/login/LoginForm";
 
 const Login = () => {
   return (
-    <div>
-      Login
+    <section id="login-section" className="flex justify-center items-center h-screen">
       <LoginForm />
-    </div>
+    </section>
   );
 };
 
