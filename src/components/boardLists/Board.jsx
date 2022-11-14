@@ -2,7 +2,6 @@ import React from "react";
 import board from "../../assets/icons/board.svg";
 
 const Board = (props) => {
-  console.log("props", props);
   return (
     <div className="w-60 h-12 bg-purple text-white cursor-pointer px-6">
       <a href={`/board/${props.board.id}`} className="h-full w-full flex items-center">
