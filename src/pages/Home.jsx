@@ -4,10 +4,10 @@ import HomeSection from "../components/home/HomeSection";
 
 const Home = () => {
   return (
-    <>
+    <main id="main" className="flex">
       <SidePanel />
       <HomeSection />
-    </>
+    </main>
   );
 };
 

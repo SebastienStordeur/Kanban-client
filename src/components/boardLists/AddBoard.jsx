@@ -1,9 +1,11 @@
 import React from "react";
+import board from "../../assets/icons/purpleBoard.svg";
 
 const AddBoard = () => {
   return (
-    <div className="flex items-center w-60 h-12 text-purple cursor-pointer ml-5">
-      <h2 className="font-bold">+ Create New Board</h2>
+    <div className="flex items-center w-60 h-12 text-purple cursor-pointer px-6">
+      <img src={board} alt="" className="text-purple" />
+      <h2 className="font-bold ml-5">+ Create New Board</h2>
     </div>
   );
 };
