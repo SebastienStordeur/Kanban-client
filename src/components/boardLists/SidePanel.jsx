@@ -28,7 +28,7 @@ const SidePanel = () => {
   }, []);
 
   return (
-    <section className="flex flex-col justify-between w-64 bg-white">
+    <section className="hidden md:flex flex-col justify-between w-64 bg-white">
       <div>
         <h2 className="font-bold text-sm tracking-widest text-mediumGrey px-6 mb-5">ALL BOARDS ({boards.length})</h2>
         {boards.map((board) => (

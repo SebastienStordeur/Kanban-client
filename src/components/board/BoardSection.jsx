@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-import Task from "./Task/Task";
+import axios from "axios";
+
 import Column from "./Column/Column";
+import EmptyBoard from "./emptyBoard/EmptyBoard";
 
 const BoardSection = () => {
   const [board, setBoard] = useState(null);
@@ -26,6 +27,7 @@ const BoardSection = () => {
           const filteredTasks = board.tasks.filter((task) => task.columnId === column.id);
           return <Column key={column.id} column={column} tasks={filteredTasks} />;
         })}
+      {/* <EmptyBoard /> */}
 
       {/* {board && board.tasks.map((task) => <Task task={task} key={task.id} />)} */}
     </section>
