@@ -6,6 +6,7 @@ import AddBoard from "./AddBoard";
 import Board from "./Board";
 
 const SidePanel = () => {
+  const token = localStorage.getItem("token");
   const [boards, setBoards] = useState([]);
   useEffect(() => {
     axios
@@ -16,6 +17,7 @@ const SidePanel = () => {
 
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {

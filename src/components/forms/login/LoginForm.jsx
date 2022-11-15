@@ -57,6 +57,7 @@ const LoginForm = () => {
         )
         .then((res) => {
           //localStorage token context
+          localStorage.setItem("token", res.data.token);
           console.log("res", res);
         })
         .catch((err) => {
