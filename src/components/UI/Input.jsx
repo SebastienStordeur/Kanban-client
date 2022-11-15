@@ -7,7 +7,10 @@ const Input = forwardRef((props, ref) => {
       id={props.id}
       ref={ref}
       autoComplete="off"
-      className={`px-2 ${props.className}`}
+      className={`px-2 border rounded-sm placeholder:text-xs placeholder:text-black placeholder:opacity-25 ${
+        props.className || ""
+      }`}
+      placeholder={props.placeholder}
     />
   );
 });

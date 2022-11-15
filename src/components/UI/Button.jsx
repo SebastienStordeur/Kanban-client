@@ -3,7 +3,9 @@ import React from "react";
 const Button = (props) => {
   return (
     <button
-      className={`flex justify-center items-center text-white cursor-pointer ${props.className || ""}`}
+      className={`flex justify-center items-center h-10 w-full rounded-3xl text-sm mt-3 cursor-pointer ${
+        props.className || ""
+      }`}
       type={props.type || "button"}
     >
       {props.children}
