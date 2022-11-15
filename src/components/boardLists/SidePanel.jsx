@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
-import axios from "Axios";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../../store/auth-context";
 
 import ThemeSwitch from "../themeSwitch/ThemeSwitch";
 import AddBoard from "./AddBoard";
 import Board from "./Board";
 
 const SidePanel = () => {
-  const token = localStorage.getItem("token");
+  const auth = useContext(AuthContext);
   const [boards, setBoards] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/board", {
-        params: {
-          userId: 8,
-        },
 
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setBoards(res.data);
-      })
-      .catch((err) => {
-        console.log("Somethibg went wrong " + err);
-      });
+  useEffect(() => {
+    try {
+      axios
+        .get("http://localhost:8000/board", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`,
+          },
+        })
+        .then((res) => setBoards(res.data))
+        .catch((err) => console.error(err));
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
@@ -36,7 +33,7 @@ const SidePanel = () => {
         {boards.map((board) => (
           <Board board={board} key={board.id} />
         ))}
-        <AddBoard />
+        {auth.isAuthenticated && <AddBoard />}
       </div>
       <ThemeSwitch />
     </section>

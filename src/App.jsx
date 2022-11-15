@@ -10,6 +10,7 @@ const App = () => {
 
   useEffect(() => {
     auth.checkIfAuthenticated();
+    console.log("auth", auth);
   }, []);
 
   return (
@@ -19,7 +20,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         {!auth.isAuthenticated && <Route path="/login" element={<Login />} />}
         {!auth.isAuthenticated && <Route path="/signup" element={<Signup />} />}
-        {auth.isAuthenticated && <Route path="/board/:id" element={<BoardPage />} />}
+        <Route path="/board/:id" element={<BoardPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
