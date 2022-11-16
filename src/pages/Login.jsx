@@ -3,9 +3,9 @@ import LoginForm from "../components/forms/login/LoginForm";
 
 const Login = () => {
   return (
-    <section id="login-section" className="flex justify-center items-center h-screen">
+    <main id="main" className="bg-lightGrey h-screen">
       <LoginForm />
-    </section>
+    </main>
   );
 };
 

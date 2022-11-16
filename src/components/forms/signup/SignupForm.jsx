@@ -5,6 +5,7 @@ import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
 import Button from "../../UI/Button";
 import Label from "../Label";
+import InputValidator from "../InputValidator";
 
 const SignupForm = () => {
   const emailInputRef = useRef(null);
@@ -25,15 +26,15 @@ const SignupForm = () => {
   return (
     <Modal>
       <form id="signup-form" onSubmit={submitSignup} className="flex flex-col">
-        <h2 className="text-black font-bold text-lg mb-8">Sign up</h2>
-        <div className="flex flex-col">
+        <h2 className="text-black font-bold text-lg">Sign up</h2>
+        <InputValidator className="flex flex-col">
           <Label htmlFor="signup-email">Email</Label>
           <Input type="email" id="signup-email" ref={emailInputRef} />
-        </div>
-        <div className="flex flex-col">
+        </InputValidator>
+        <InputValidator className="flex flex-col">
           <Label htmlFor="signup-password">Password</Label>
           <Input type="password" id="signup-password" ref={passwordInputRef} />
-        </div>
+        </InputValidator>
         <Button type="submit" className="bg-purple text-white">
           Sign Up
         </Button>

@@ -4,6 +4,7 @@ import Textarea from "../../UI/Textarea";
 import InputValidator from "../InputValidator";
 import Button from "../../UI/Button";
 import Label from "../Label";
+import Modal from "../../UI/Modal";
 
 const CreateTaskForm = () => {
   const handleSubmit = (event) => {
@@ -11,7 +12,7 @@ const CreateTaskForm = () => {
   };
 
   return (
-    <section className="absolute bg-white p-6 rounded-md text-left">
+    <Modal>
       <h2 className="text-black font-bold text-lg">Add New Task</h2>
       <form onSubmit={handleSubmit}>
         <InputValidator>
@@ -35,7 +36,7 @@ const CreateTaskForm = () => {
           Create Task
         </Button>
       </form>
-    </section>
+    </Modal>
   );
 };
 

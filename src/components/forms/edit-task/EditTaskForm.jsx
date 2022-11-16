@@ -1,7 +1,8 @@
 import React from "react";
+import Modal from "../../UI/Modal";
 
 const EditTaskForm = () => {
-  return <div>EditTaskForm</div>;
+  return <Modal>EditTaskForm</Modal>;
 };
 
 export default EditTaskForm;
