@@ -3,9 +3,9 @@ import SignupForm from "../components/forms/signup/SignupForm";
 
 const Signup = () => {
   return (
-    <div>
+    <main id="main" className="bg-lightGrey h-screen">
       <SignupForm />
-    </div>
+    </main>
   );
 };
 

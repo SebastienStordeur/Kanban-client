@@ -9,6 +9,7 @@ import { AuthContext } from "../../store/auth-context";
 const BoardSection = () => {
   const auth = useContext(AuthContext);
   const [board, setBoard] = useState(null);
+  const [accessDenied, setAccessDenied] = useState(false);
   const boardId = useParams();
 
   useEffect(() => {
@@ -19,7 +20,9 @@ const BoardSection = () => {
         },
       })
       .then((res) => setBoard(res.data))
-      .catch((err) => console.log("an error occured " + err));
+      .catch((err) => {
+        if (err.response.status === 403) setAccessDenied(true);
+      });
   }, []);
 
   console.log(board);
@@ -31,6 +34,9 @@ const BoardSection = () => {
           return <Column key={column.id} column={column} tasks={filteredTasks} />;
         })}
       {board && board.columns.length === 0 && <EmptyBoard />}
+      {accessDenied && (
+        <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
+      )}
     </section>
   );
 };

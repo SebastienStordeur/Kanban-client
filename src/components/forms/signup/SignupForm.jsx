@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import axios from "axios";
 
 import Input from "../../UI/Input";
+import Modal from "../../UI/Modal";
+import Button from "../../UI/Button";
+import Label from "../Label";
 
 const SignupForm = () => {
   const emailInputRef = useRef(null);
@@ -20,14 +23,22 @@ const SignupForm = () => {
   };
 
   return (
-    <form id="signup-form" onSubmit={submitSignup}>
-      <div>
-        <Input type="email" id="signup-email" ref={emailInputRef} />
-      </div>
-      <Input type="password" id="signup-password" ref={passwordInputRef} />
-
-      <button type="submit">subtmit</button>
-    </form>
+    <Modal>
+      <form id="signup-form" onSubmit={submitSignup} className="flex flex-col">
+        <h2 className="text-black font-bold text-lg mb-8">Sign up</h2>
+        <div className="flex flex-col">
+          <Label htmlFor="signup-email">Email</Label>
+          <Input type="email" id="signup-email" ref={emailInputRef} />
+        </div>
+        <div className="flex flex-col">
+          <Label htmlFor="signup-password">Password</Label>
+          <Input type="password" id="signup-password" ref={passwordInputRef} />
+        </div>
+        <Button type="submit" className="bg-purple text-white">
+          Sign Up
+        </Button>
+      </form>
+    </Modal>
   );
 };
 
