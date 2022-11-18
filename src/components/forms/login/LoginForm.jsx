@@ -74,6 +74,7 @@ const LoginForm = () => {
 
   return (
     <Modal>
+      <h1 className="text-black font-bold text-lg">Login</h1>
       <form id="login-form" onSubmit={submitLogin} className="flex flex-col">
         <InputValidator>
           <Label htmlFor="login-email" className="font-bold">
@@ -92,7 +93,7 @@ const LoginForm = () => {
           Submit
         </Button>
         {credentialsError && <p className="text-center text-red text-sm font-bold">Wrong email/password combination</p>}
-        <p>
+        <p className="font-bold text-sm mb-2 text-center mt-2">
           Need an account ?
           <Link to="/signup" className="text-purple cursor-pointer font-bold">
             Sign up
