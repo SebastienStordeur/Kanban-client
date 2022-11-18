@@ -4,7 +4,7 @@ import SidePanel from "../components/boardLists/SidePanel";
 
 const BoardPage = () => {
   return (
-    <main id="main" className="flex">
+    <main id="main" className="flex h-[calc(100vh-64px)]">
       <SidePanel />
       <BoardSection />
     </main>

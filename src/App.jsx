@@ -10,7 +10,6 @@ const App = () => {
 
   useEffect(() => {
     auth.checkIfAuthenticated();
-    console.log("auth", auth);
   }, []);
 
   return (

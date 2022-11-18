@@ -6,9 +6,13 @@ import ThemeSwitch from "../themeSwitch/ThemeSwitch";
 import AddBoard from "./AddBoard";
 import Board from "./Board";
 
-const SidePanel = () => {
+const SidePanel = (props) => {
   const auth = useContext(AuthContext);
   const [boards, setBoards] = useState([]);
+
+  const openAddBoardHandler = () => {
+    props.addBoardIsOpen(true);
+  };
 
   useEffect(() => {
     try {
@@ -33,7 +37,7 @@ const SidePanel = () => {
         {boards.map((board) => (
           <Board board={board} key={board.id} />
         ))}
-        {auth.isAuthenticated && <AddBoard />}
+        {auth.isAuthenticated && <AddBoard onClick={openAddBoardHandler} />}
       </div>
       <ThemeSwitch />
     </section>
