@@ -25,7 +25,7 @@ const BoardSection = () => {
       });
   }, []);
 
-  console.log(board);
+  console.log("Current board", board);
   return (
     <section id="board-section" className="px-2.5 w-full h-screen bg-lightGrey flex font-bold text-mediumGrey text-lg">
       {board &&

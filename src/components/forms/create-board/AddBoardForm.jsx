@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
@@ -29,10 +28,8 @@ const AddBoardForm = () => {
     const columns = [];
 
     for (const [key, value] of Object.entries(columnsValues)) {
-      console.log("key", key, "value", value);
       columns.push(value);
     }
-    console.log(columns);
 
     axios
       .post(
@@ -41,12 +38,7 @@ const AddBoardForm = () => {
           title: boardInputRef.current.value,
           columns: columns,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
+        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
       )
       .then((response) => console.log(response));
   };
