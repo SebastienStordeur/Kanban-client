@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { emailRegex } from "../../../utils/Regex/regex";
 import Input from "../../UI/Input";
@@ -19,6 +19,7 @@ const LoginForm = () => {
 
   const [emailMessageError, setEmailMessageError] = useState("");
   const [credentialsError, setCredentialsError] = useState(false);
+  const navigate = useNavigate();
 
   const headers = {
     "Content-Type": "application/json",
@@ -28,8 +29,6 @@ const LoginForm = () => {
 
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
-
-    //emailValidation(email, error, setEmailMessageError);
 
     if (email.trim() === "") {
       setEmailHasError(true);
@@ -59,9 +58,8 @@ const LoginForm = () => {
           { headers }
         )
         .then((res) => {
-          //localStorage token context
           localStorage.setItem("token", res.data.token);
-          console.log("res", res);
+          navigate("/");
         })
         .catch((err) => {
           console.log(err);

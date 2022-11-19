@@ -40,7 +40,10 @@ const AddBoardForm = () => {
         },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
       )
-      .then((response) => console.log(response));
+      .then((response) => {})
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -52,7 +55,7 @@ const AddBoardForm = () => {
           <Input id="board-name" ref={boardInputRef} />
         </InputValidator>
         <InputValidator>
-          Board Columns
+          <Label htmlFor="">Board Columns</Label>
           {columnsArray.map((_, index) => {
             const handleChange = (event) => {
               setColumnsValue((prev) => {
