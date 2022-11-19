@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,8 +10,11 @@ import { sendLoginRequest } from "../../../services/requests/LoginRequest";
 import Modal from "../../UI/Modal";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
+import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
+import { ThemeContext } from "../../../store/theme-context";
 
 const LoginForm = () => {
+  const theme = useContext(ThemeContext);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
 
@@ -72,8 +75,8 @@ const LoginForm = () => {
 
   return (
     <Modal>
-      <h1 className="text-black font-bold text-lg">Login</h1>
       <form id="login-form" onSubmit={submitLogin} className="flex flex-col">
+        <h1 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Login</h1>
         <InputValidator>
           <Label htmlFor="login-email" className="font-bold">
             Email
@@ -91,13 +94,16 @@ const LoginForm = () => {
           Submit
         </Button>
         {credentialsError && <p className="text-center text-red text-sm font-bold">Wrong email/password combination</p>}
-        <p className="font-bold text-sm mb-2 text-center mt-2">
-          Need an account ?
+        <p
+          className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-sm mb-2 text-center mt-2`}
+        >
+          Need an account? &nbsp;
           <Link to="/signup" className="text-purple cursor-pointer font-bold">
             Sign up
           </Link>
         </p>
       </form>
+      <ThemeSwitch />
     </Modal>
   );
 };

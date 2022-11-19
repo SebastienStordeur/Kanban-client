@@ -10,8 +10,8 @@ export const ThemeContextProvider = (props) => {
   let themeUpdated;
 
   const switchTheme = () => {
-    if (theme === "light") return (themeUpdated = "dark");
-    if (theme === "dark") return (themeUpdated = "light");
+    if (theme === "light") themeUpdated = "dark";
+    if (theme === "dark") themeUpdated = "light";
     setTheme(themeUpdated);
     localStorage.setItem("theme", theme);
   };

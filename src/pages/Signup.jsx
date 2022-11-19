@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import SignupForm from "../components/forms/signup/SignupForm";
+import { ThemeContext } from "../store/theme-context";
 
 const Signup = () => {
+  const theme = useContext(ThemeContext);
   return (
-    <main id="main" className="bg-lightGrey h-[calc(100vh-64px)] flex items-center justify-center px-4">
+    <main
+      id="main"
+      className={`${
+        theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
+      } bg-lightGrey h-screen flex items-center justify-center px-4`}
+    >
       <SignupForm />
     </main>
   );

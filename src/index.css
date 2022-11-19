@@ -10,3 +10,7 @@
   box-sizing: border-box;
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
+
+.switch[data-theme="true"] {
+  justify-content: flex-end;
+}

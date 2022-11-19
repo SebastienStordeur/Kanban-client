@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../store/theme-context";
 
 const Modal = (props) => {
+  const theme = useContext(ThemeContext);
   return (
-    <article className={`w-full bg-white mx-auto max-w-[480px] p-6 rounded-lg ${props.className || ""}`}>
+    <article
+      className={`${theme.theme === "dark" ? "bg-darkGrey" : "bg-white"} w-full mx-auto max-w-[480px] p-6 rounded-lg ${
+        props.className || ""
+      }`}
+    >
       {props.children}
     </article>
   );
