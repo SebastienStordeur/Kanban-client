@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../../store/auth-context";
+import { BoardContext } from "../../../store/boards-context";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
@@ -9,6 +10,7 @@ import Label from "../Label";
 
 const AddBoardForm = () => {
   const auth = useContext(AuthContext);
+  const board = useContext(BoardContext);
   const boardInputRef = useRef(null);
 
   const [numberOfColumns, setNumberOfColumns] = useState(2);
@@ -27,7 +29,7 @@ const AddBoardForm = () => {
 
     const columns = [];
 
-    for (const [key, value] of Object.entries(columnsValues)) {
+    for (const [_, value] of Object.entries(columnsValues)) {
       columns.push(value);
     }
 
@@ -40,10 +42,8 @@ const AddBoardForm = () => {
         },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
       )
-      .then((response) => {})
-      .catch((err) => {
-        console.error(err);
-      });
+      .then(() => board.getBoards())
+      .catch((err) => console.error(err));
   };
 
   return (
