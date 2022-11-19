@@ -36,7 +36,7 @@ const SignupForm = () => {
           <Label htmlFor="signup-password">Password</Label>
           <Input type="password" id="signup-password" ref={passwordInputRef} />
         </InputValidator>
-        <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold h-8 mt-8">
+        <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8">
           Sign Up
         </Button>
         <p className="font-bold text-sm mb-2 text-center mt-2">

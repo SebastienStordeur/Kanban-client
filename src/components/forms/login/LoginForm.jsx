@@ -89,7 +89,7 @@ const LoginForm = () => {
           </Label>
           <Input type="password" id="login-password" ref={passwordInputRef} />
         </InputValidator>
-        <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold h-8 mt-8">
+        <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8">
           Submit
         </Button>
         {credentialsError && <p className="text-center text-red text-sm font-bold">Wrong email/password combination</p>}

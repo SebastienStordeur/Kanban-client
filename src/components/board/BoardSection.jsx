@@ -7,6 +7,7 @@ import EmptyBoard from "./emptyBoard/EmptyBoard";
 import { AuthContext } from "../../store/auth-context";
 
 const BoardSection = () => {
+  const id = useParams();
   const auth = useContext(AuthContext);
   const [board, setBoard] = useState(null);
   const [accessDenied, setAccessDenied] = useState(false);
@@ -23,7 +24,7 @@ const BoardSection = () => {
       .catch((err) => {
         if (err.response.status === 403) setAccessDenied(true);
       });
-  }, []);
+  }, [id]);
 
   console.log("Current board", board);
   return (
