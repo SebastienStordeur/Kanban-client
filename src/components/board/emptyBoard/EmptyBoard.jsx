@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../../store/theme-context";
 import Button from "../../UI/Button";
 
 const EmptyBoard = () => {
+  const theme = useContext(ThemeContext);
   return (
     <section className="flex justify-center items-center w-full">
       <div className="flex flex-col items-center">

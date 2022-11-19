@@ -1,18 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../store/theme-context";
 import { motion } from "framer-motion";
 
 import Sun from "../../assets/icons/sun.svg";
 import Moon from "../../assets/icons/moon.svg";
 
+const spring = {
+  type: "spring",
+  stiffness: 500,
+  damping: 30,
+};
+
 const ThemeSwitch = () => {
   const theme = useContext(ThemeContext);
   const [themeBoolean, setThemeBoolean] = useState(false);
 
   const toggleSwitch = () => {
-    setThemeBoolean((prev) => !prev);
+    setThemeBoolean(!themeBoolean);
     theme.switchTheme();
   };
+
+  useEffect(() => {
+    if (theme.theme === "dark") setThemeBoolean(true);
+    else setThemeBoolean(false);
+  }, [theme.theme]);
 
   return (
     <div
@@ -26,7 +37,7 @@ const ThemeSwitch = () => {
         data-theme={themeBoolean}
         onClick={toggleSwitch}
       >
-        <motion.div className="w-3.5 h-3.5 bg-white mx-0.5 rounded-full" layout /* transition={spring} */ />
+        <motion.div className="w-3.5 h-3.5 bg-white mx-0.5 rounded-full" layout transition={spring} />
       </div>
       <img src={Moon} alt="Dark theme" />
     </div>

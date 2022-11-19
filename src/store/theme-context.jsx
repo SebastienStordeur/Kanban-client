@@ -13,11 +13,11 @@ export const ThemeContextProvider = (props) => {
     if (theme === "light") themeUpdated = "dark";
     if (theme === "dark") themeUpdated = "light";
     setTheme(themeUpdated);
-    localStorage.setItem("theme", theme);
+    localStorage.setItem("theme", themeUpdated);
   };
 
   const defaultValue = {
-    theme,
+    theme: theme,
     switchTheme,
   };
 

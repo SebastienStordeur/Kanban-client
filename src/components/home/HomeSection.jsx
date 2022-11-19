@@ -1,11 +1,14 @@
-import React from "react";
-import DeleteTaskForm from "../forms/delete-task/DeleteTaskForm";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../store/theme-context";
 
 const HomeSection = () => {
+  const theme = useContext(ThemeContext);
   return (
     <section
       id="home-section"
-      className="px-2.5 w-full bg-lightGrey flex justify-center items-center font-bold text-mediumGrey text-center text-lg"
+      className={`${
+        theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
+      } px-2.5 w-full flex justify-center items-center font-bold text-mediumGrey text-center text-lg`}
     >
       <h2>Create or select one of your active boards</h2>
     </section>

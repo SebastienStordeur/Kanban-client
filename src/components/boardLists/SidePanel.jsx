@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../store/auth-context";
+import { BoardContext } from "../../store/boards-context";
+import { ThemeContext } from "../../store/theme-context";
 
 import ThemeSwitch from "../themeSwitch/ThemeSwitch";
 import AddBoard from "./AddBoard";
 import Board from "./Board";
-import { BoardContext } from "../../store/boards-context";
 
 const SidePanel = (props) => {
   const auth = useContext(AuthContext);
   const board = useContext(BoardContext);
+  const theme = useContext(ThemeContext);
 
   const openAddBoardHandler = () => {
     props.addBoardIsOpen((prev) => !prev);
@@ -20,7 +21,9 @@ const SidePanel = (props) => {
   }, []);
 
   return (
-    <section className="hidden md:flex flex-col justify-between w-64 bg-white">
+    <section
+      className={`${theme.theme === "dark" ? "bg-darkGrey" : "bg-white"} hidden md:flex flex-col justify-between w-64`}
+    >
       <div>
         <h2 className="font-bold text-sm tracking-widest text-mediumGrey px-6 mb-5">
           ALL BOARDS ({board.boards.length})
@@ -30,7 +33,9 @@ const SidePanel = (props) => {
         ))}
         {auth.isAuthenticated && <AddBoard onClick={openAddBoardHandler} />}
       </div>
-      <ThemeSwitch />
+      <div className="px-3">
+        <ThemeSwitch />
+      </div>
     </section>
   );
 };
