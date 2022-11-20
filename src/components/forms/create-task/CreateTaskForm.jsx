@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 
-const CreateTaskForm = () => {
+const CreateTaskForm = (props) => {
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const boardId = useParams();
