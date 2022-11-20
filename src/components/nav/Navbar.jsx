@@ -16,7 +16,7 @@ const Navbar = (props) => {
     <nav className="flex justify-between items-center h-full px-4">
       <Logo />
       {location.pathname === `/board/${id}` && (
-        <Button className="w-40 bg-purple text-white mt-0 hover:bg-opacity-50" onClick={openAddTaskForm}>
+        <Button className="w-40 bg-purple text-white hover:bg-opacity-50" onClick={openAddTaskForm}>
           + Add New Task
         </Button>
       )}

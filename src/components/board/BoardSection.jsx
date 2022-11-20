@@ -5,10 +5,13 @@ import axios from "axios";
 import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
 import { AuthContext } from "../../store/auth-context";
+import { ThemeContext } from "../../store/theme-context";
+import EditTaskForm from "../forms/edit-task/EditTaskForm";
 
 const BoardSection = () => {
   const id = useParams();
   const auth = useContext(AuthContext);
+  const theme = useContext(ThemeContext);
   const [board, setBoard] = useState(null);
   const [accessDenied, setAccessDenied] = useState(false);
   const boardId = useParams();
@@ -27,7 +30,12 @@ const BoardSection = () => {
   }, [id]);
 
   return (
-    <section id="board-section" className="px-2.5 w-full h-screen bg-lightGrey flex font-bold text-mediumGrey text-lg">
+    <section
+      id="board-section"
+      className={`${
+        theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
+      } px-2.5 w-full h-screen flex font-bold text-mediumGrey text-lg`}
+    >
       {board &&
         board.columns?.map((column) => {
           const filteredTasks = board.tasks.filter((task) => task.columnId === column.id);
@@ -37,6 +45,7 @@ const BoardSection = () => {
       {accessDenied && (
         <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
       )}
+      {/* {board && <EditTaskForm board={board} />} */}
     </section>
   );
 };
