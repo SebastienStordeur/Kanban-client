@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { ThemeContext } from "../../store/theme-context";
 
 const Label = (props) => {
@@ -13,4 +14,8 @@ const Label = (props) => {
   );
 };
 
+Label.propTypes = {
+  htmlFor: PropTypes.string,
+  className: PropTypes.string,
+};
 export default Label;

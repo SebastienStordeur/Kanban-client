@@ -28,7 +28,7 @@ const Task = (props) => {
           </p>
         )}
       </article>
-      {editTaskIsOpen && <EditTaskForm task={props.task} />}
+      {editTaskIsOpen && <EditTaskForm task={props.task} onClick={openTaskForm} />}
     </React.Fragment>
   );
 };

@@ -22,7 +22,8 @@ const BoardSection = (props) => {
       } px-2.5 w-full h-[calc(100vh-64px)] overflow-hidden flex font-bold text-mediumGrey text-lg`}
     >
       {props.board &&
-        props.board.columns?.map((column) => {
+        props.board.columns.length > 0 &&
+        props.board.columns.map((column) => {
           const filteredTasks = props.board.tasks.filter((task) => task.columnId === column.id);
           return <Column key={column.id} column={column} tasks={filteredTasks} />;
         })}
