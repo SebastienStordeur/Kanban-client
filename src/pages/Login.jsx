@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import LoginForm from "../components/forms/login/LoginForm";
 import { ThemeContext } from "../store/theme-context";
+
+import LoginForm from "../components/forms/login/LoginForm";
 
 const Login = () => {
   const theme = useContext(ThemeContext);
@@ -9,7 +10,7 @@ const Login = () => {
       id="main"
       className={`${
         theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
-      } bg-lightGrey h-screen flex items-center justify-center px-4`}
+      } h-screen flex items-center justify-center px-4`}
     >
       <LoginForm />
     </main>

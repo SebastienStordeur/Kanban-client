@@ -49,7 +49,7 @@ const BoardSection = () => {
         <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
       )}
       {deleteBoardIsOpen && <DeleteBoardForm title={board.title} setIsOpen={setDeleteBoardIsOpen} />}
-      {board && <CreateTaskForm board={board} />}
+      {/* {board && <CreateTaskForm board={board} />} */}
     </section>
   );
 };

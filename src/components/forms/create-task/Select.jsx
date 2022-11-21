@@ -10,8 +10,9 @@ const Select = (props) => {
     setIsMenuOpen((prevValue) => !prevValue);
   };
 
-  const setActiveValueHandler = (value) => {
+  const setActiveValueHandler = (value, id) => {
     setActiveValue(value);
+    props.setId(id);
   };
 
   return (

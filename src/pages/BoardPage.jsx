@@ -13,7 +13,7 @@ const BoardPage = (props) => {
       <main id="main" className="flex h-[calc(100vh-64px)] overflow-hidden">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
         <BoardSection />
-        {props.boardIsOpen && <AddBoardForm />}
+        {/* {props.boardIsOpen && <AddBoardForm />} */}
         {addTaskIsOpen && <CreateTaskForm />}
       </main>
     </React.Fragment>

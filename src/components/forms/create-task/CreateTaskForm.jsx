@@ -22,6 +22,7 @@ const CreateTaskForm = (props) => {
 
   const [numberOfSubtasks, setNumberOfSubtasks] = useState(2);
   const [subtasksValues, setSubtasksValue] = useState([{ title: "" }]);
+  const [columnId, setColumnId] = useState(props.board.columns[0].id);
 
   let subtasksArray = Array.from({ length: numberOfSubtasks });
 
@@ -47,7 +48,7 @@ const CreateTaskForm = (props) => {
           description: descriptionInputRef.current.value,
           subtasks,
           boardId: boardId.id,
-          columnId: 25,
+          columnId: columnId,
         },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
       )
@@ -90,16 +91,7 @@ const CreateTaskForm = (props) => {
           + Add New Subtask
         </Button>
         <Label>Status</Label>
-        <Select columns={props.board.columns} />
-        {/*         <select name="status">
-          {props.board.columns.map((column) => {
-            return (
-              <option value={column.column} key={column.id}>
-                {column.column}
-              </option>
-            );
-          })}
-        </select> */}
+        <Select columns={props.board.columns} setId={setColumnId} />
         <Button type="submit" className="bg-purple text-white">
           Create Task
         </Button>

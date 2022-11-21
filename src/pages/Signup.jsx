@@ -9,7 +9,7 @@ const Signup = () => {
       id="main"
       className={`${
         theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
-      } bg-lightGrey h-screen flex items-center justify-center px-4`}
+      } h-screen flex items-center justify-center px-4`}
     >
       <SignupForm />
     </main>

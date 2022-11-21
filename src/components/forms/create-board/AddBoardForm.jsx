@@ -1,18 +1,23 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
+
 import { AuthContext } from "../../../store/auth-context";
 import { BoardContext } from "../../../store/boards-context";
 import { ThemeContext } from "../../../store/theme-context";
+
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
+import Backdrop from "../Backdrop/Backdrop";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
 
-const AddBoardForm = () => {
+const ModalOverlay = (props) => {
+  const theme = useContext(ThemeContext);
   const auth = useContext(AuthContext);
   const board = useContext(BoardContext);
-  const theme = useContext(ThemeContext);
+
   const boardInputRef = useRef(null);
 
   const [numberOfColumns, setNumberOfColumns] = useState(2);
@@ -47,9 +52,8 @@ const AddBoardForm = () => {
       .then(() => board.getBoards())
       .catch((err) => console.error(err));
   };
-
   return (
-    <Modal className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form id="create-board-form" onSubmit={handleSubmit}>
         <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Add New Board</h2>
         <InputValidator>
@@ -75,6 +79,15 @@ const AddBoardForm = () => {
         </Button>
       </form>
     </Modal>
+  );
+};
+
+const AddBoardForm = (props) => {
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
+      {ReactDOM.createPortal(<ModalOverlay onClick={props.onClick} />, document.getElementById("modal-root"))}
+    </React.Fragment>
   );
 };
 
