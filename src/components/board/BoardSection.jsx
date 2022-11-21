@@ -8,6 +8,7 @@ import { AuthContext } from "../../store/auth-context";
 import { ThemeContext } from "../../store/theme-context";
 import EditTaskForm from "../forms/edit-task/EditTaskForm";
 import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
+import CreateTaskForm from "../forms/create-task/CreateTaskForm";
 
 const BoardSection = () => {
   const id = useParams();
@@ -48,7 +49,7 @@ const BoardSection = () => {
         <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
       )}
       {deleteBoardIsOpen && <DeleteBoardForm title={board.title} setIsOpen={setDeleteBoardIsOpen} />}
-      {/* {board && <EditTaskForm board={board} />} */}
+      {board && <CreateTaskForm board={board} />}
     </section>
   );
 };

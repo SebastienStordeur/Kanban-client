@@ -9,8 +9,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
+import Select from "./Select";
 
 const CreateTaskForm = (props) => {
+  console.log(props);
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const boardId = useParams();
@@ -74,7 +76,6 @@ const CreateTaskForm = (props) => {
         </InputValidator>
         <InputValidator>
           <Label>Subtasks</Label>
-
           {subtasksArray.map((_, index) => {
             const handleChange = (event) => {
               setSubtasksValue((prev) => {
@@ -89,7 +90,16 @@ const CreateTaskForm = (props) => {
           + Add New Subtask
         </Button>
         <Label>Status</Label>
-        <select name="status">{}</select>
+        <Select columns={props.board.columns} />
+        {/*         <select name="status">
+          {props.board.columns.map((column) => {
+            return (
+              <option value={column.column} key={column.id}>
+                {column.column}
+              </option>
+            );
+          })}
+        </select> */}
         <Button type="submit" className="bg-purple text-white">
           Create Task
         </Button>
