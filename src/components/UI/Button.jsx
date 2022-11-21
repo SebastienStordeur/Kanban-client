@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Button = (props) => {
   return (
@@ -12,6 +13,12 @@ const Button = (props) => {
       {props.children}
     </button>
   );
+};
+
+Button.propTypes = {
+  type: PropTypes.string,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default React.memo(Button);

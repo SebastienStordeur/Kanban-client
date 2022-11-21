@@ -6,7 +6,7 @@ const Header = (props) => {
   const theme = useContext(ThemeContext);
   return (
     <header id="header" className={`${theme.theme === "dark" ? "bg-darkGrey" : "bg-white"} h-16`}>
-      <Navbar setTaskIsOpen={props.setTaskIsOpen} />
+      <Navbar board={props.board} access={props.access} />
     </header>
   );
 };

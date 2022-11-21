@@ -13,7 +13,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
 
-const ModalOverlay = (props) => {
+const ModalOverlay = () => {
   const theme = useContext(ThemeContext);
   const auth = useContext(AuthContext);
   const board = useContext(BoardContext);

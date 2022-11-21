@@ -1,22 +1,22 @@
-import axios from "axios";
 import React, { useContext } from "react";
+import ReactDOM from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+
 import { AuthContext } from "../../../store/auth-context";
 import { BoardContext } from "../../../store/boards-context";
 import { ThemeContext } from "../../../store/theme-context";
+
 import Button from "../../UI/Button";
 import Modal from "../../UI/Modal";
+import Backdrop from "../Backdrop/Backdrop";
 
-const DeleteBoardForm = (props) => {
+const ModalOverlay = (props) => {
   const { id } = useParams();
   const auth = useContext(AuthContext);
   const board = useContext(BoardContext);
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
-
-  const closeDeleteModal = () => {
-    props.setIsOpen(false);
-  };
 
   const deleteBoard = () => {
     axios
@@ -34,7 +34,7 @@ const DeleteBoardForm = (props) => {
   };
 
   return (
-    <Modal className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <h2 className="text-red font-bold text-lg">Delete this board?</h2>
       <p className={`${theme.theme === "dark" ? "text-white" : ""} font-medium text-xs my-6`}>
         Are you sure you want to delete the ‘{props.title}’ board? This action will remove all columns and tasks and
@@ -43,10 +43,22 @@ const DeleteBoardForm = (props) => {
       <Button className="bg-red text-white mt-3" onClick={deleteBoard}>
         Delete
       </Button>
-      <Button className="bg-purple bg-opacity-10 text-purple mt-3" onClick={closeDeleteModal}>
+      <Button className="bg-purple bg-opacity-10 text-purple mt-3" onClick={props.onClick}>
         Cancel
       </Button>
     </Modal>
+  );
+};
+
+const DeleteBoardForm = (props) => {
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
+      {ReactDOM.createPortal(
+        <ModalOverlay onClick={props.onClick} title={props.title} />,
+        document.getElementById("modal-root")
+      )}
+    </React.Fragment>
   );
 };
 

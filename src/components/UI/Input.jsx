@@ -1,4 +1,6 @@
 import React, { forwardRef, useContext } from "react";
+import PropTypes from "prop-types";
+
 import { ThemeContext } from "../../store/theme-context";
 
 const Input = forwardRef((props, ref) => {
@@ -17,5 +19,13 @@ const Input = forwardRef((props, ref) => {
     />
   );
 });
+
+Input.propTypes = {
+  type: PropTypes.string,
+  id: PropTypes.string,
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default React.memo(Input);

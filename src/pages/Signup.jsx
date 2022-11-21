@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import SignupForm from "../components/forms/signup/SignupForm";
 import { ThemeContext } from "../store/theme-context";
+
+import SignupForm from "../components/forms/signup/SignupForm";
 
 const Signup = () => {
   const theme = useContext(ThemeContext);

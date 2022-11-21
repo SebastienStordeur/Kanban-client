@@ -12,7 +12,6 @@ import { ThemeContext } from "../../../store/theme-context";
 import Select from "./Select";
 
 const CreateTaskForm = (props) => {
-  console.log(props);
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const boardId = useParams();

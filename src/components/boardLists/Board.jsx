@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+
+import { ThemeContext } from "../../store/theme-context";
+
 import board from "../../assets/icons/board.svg";
 import greyBoard from "../../assets/icons/greyBoard.svg";
-import { ThemeContext } from "../../store/theme-context";
 
 const Board = (props) => {
   const theme = useContext(ThemeContext);
@@ -20,10 +22,10 @@ const Board = (props) => {
         children={({ isActive }) => {
           const image = isActive ? board : greyBoard;
           return (
-            <>
+            <React.Fragment>
               <img src={image} alt="Board Icon" />
               <h2 className="font-bold ml-5">{props.board.title}</h2>
-            </>
+            </React.Fragment>
           );
         }}
       />

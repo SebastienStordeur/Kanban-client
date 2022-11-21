@@ -1,4 +1,5 @@
 import React, { forwardRef, useContext } from "react";
+import PropTypes from "prop-types";
 import { ThemeContext } from "../../store/theme-context";
 
 const Textarea = forwardRef((props, ref) => {
@@ -14,5 +15,11 @@ const Textarea = forwardRef((props, ref) => {
     ></textarea>
   );
 });
+
+Textarea.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  placeholder: PropTypes.string,
+};
 
 export default Textarea;

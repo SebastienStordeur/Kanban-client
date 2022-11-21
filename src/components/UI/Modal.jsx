@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
+
 import { ThemeContext } from "../../store/theme-context";
 
 const Modal = (props) => {
@@ -13,4 +15,9 @@ const Modal = (props) => {
     </article>
   );
 };
+
+Modal.propTypes = {
+  className: PropTypes.string,
+};
+
 export default Modal;
