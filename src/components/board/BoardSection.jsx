@@ -7,6 +7,7 @@ import EmptyBoard from "./emptyBoard/EmptyBoard";
 import { AuthContext } from "../../store/auth-context";
 import { ThemeContext } from "../../store/theme-context";
 import EditTaskForm from "../forms/edit-task/EditTaskForm";
+import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
 
 const BoardSection = () => {
   const id = useParams();
@@ -14,6 +15,7 @@ const BoardSection = () => {
   const theme = useContext(ThemeContext);
   const [board, setBoard] = useState(null);
   const [accessDenied, setAccessDenied] = useState(false);
+  const [deleteBoardIsOpen, setDeleteBoardIsOpen] = useState(false);
   const boardId = useParams();
 
   useEffect(() => {
@@ -45,6 +47,7 @@ const BoardSection = () => {
       {accessDenied && (
         <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
       )}
+      {deleteBoardIsOpen && <DeleteBoardForm title={board.title} setIsOpen={setDeleteBoardIsOpen} />}
       {/* {board && <EditTaskForm board={board} />} */}
     </section>
   );

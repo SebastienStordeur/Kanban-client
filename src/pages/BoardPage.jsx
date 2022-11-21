@@ -8,18 +8,16 @@ import Header from "../components/layout/Header";
 
 const BoardPage = (props) => {
   const [addTaskIsOpen, setAddTaskIsOpen] = useState(false);
-  const [deleteBoardIsOpen, setDeleteBoardIsOpen] = useState(false);
   return (
-    <>
+    <React.Fragment>
       <Header taskIsOpen={addTaskIsOpen} setTaskIsOpen={setAddTaskIsOpen} />
       <main id="main" className="flex h-[calc(100vh-64px)] overflow-hidden">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
         <BoardSection />
         {props.boardIsOpen && <AddBoardForm />}
         {addTaskIsOpen && <CreateTaskForm />}
-        {deleteBoardIsOpen && <DeleteBoardForm />}
       </main>
-    </>
+    </React.Fragment>
   );
 };
 

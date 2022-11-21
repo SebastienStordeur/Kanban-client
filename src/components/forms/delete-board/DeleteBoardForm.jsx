@@ -7,12 +7,16 @@ import { ThemeContext } from "../../../store/theme-context";
 import Button from "../../UI/Button";
 import Modal from "../../UI/Modal";
 
-const DeleteBoardForm = () => {
+const DeleteBoardForm = (props) => {
   const { id } = useParams();
   const auth = useContext(AuthContext);
   const board = useContext(BoardContext);
   const theme = useContext(ThemeContext);
   const navigate = useNavigate();
+
+  const closeDeleteModal = () => {
+    props.setIsOpen(false);
+  };
 
   const deleteBoard = () => {
     axios
@@ -33,13 +37,15 @@ const DeleteBoardForm = () => {
     <Modal className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <h2 className="text-red font-bold text-lg">Delete this board?</h2>
       <p className={`${theme.theme === "dark" ? "text-white" : ""} font-medium text-xs my-6`}>
-        Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and
+        Are you sure you want to delete the ‘{props.title}’ board? This action will remove all columns and tasks and
         cannot be reversed.
       </p>
       <Button className="bg-red text-white mt-3" onClick={deleteBoard}>
         Delete
       </Button>
-      <Button className="bg-purple bg-opacity-10 text-purple mt-3">Cancel</Button>
+      <Button className="bg-purple bg-opacity-10 text-purple mt-3" onClick={closeDeleteModal}>
+        Cancel
+      </Button>
     </Modal>
   );
 };
