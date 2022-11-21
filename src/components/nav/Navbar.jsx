@@ -24,7 +24,7 @@ const Navbar = (props) => {
           </Button>
         )}
       </nav>
-      {addTaskIsOpen && <CreateTaskForm board={props.board} />}
+      {addTaskIsOpen && <CreateTaskForm board={props.board} onClick={openAddTaskForm} />}
     </React.Fragment>
   );
 };

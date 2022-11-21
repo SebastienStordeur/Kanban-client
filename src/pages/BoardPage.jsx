@@ -29,7 +29,7 @@ const BoardPage = (props) => {
   return (
     <React.Fragment>
       <Header board={board} access={accessDenied} />
-      <main id="main" className="flex h-[calc(100vh-64px)] overflow-hidden">
+      <main id="main" className="flex h-[calc(100vh-64px)]">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
         <BoardSection board={board} access={accessDenied} />
       </main>

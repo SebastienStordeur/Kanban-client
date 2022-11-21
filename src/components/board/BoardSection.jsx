@@ -1,14 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 
-import { AuthContext } from "../../store/auth-context";
 import { ThemeContext } from "../../store/theme-context";
 
 import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
 import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
-import CreateTaskForm from "../forms/create-task/CreateTaskForm";
 
 const BoardSection = (props) => {
   const theme = useContext(ThemeContext);
@@ -23,7 +19,7 @@ const BoardSection = (props) => {
       id="board-section"
       className={`${
         theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
-      } px-2.5 w-full h-screen flex font-bold text-mediumGrey text-lg`}
+      } px-2.5 w-full h-[calc(100vh-64px)] overflow-hidden flex font-bold text-mediumGrey text-lg`}
     >
       {props.board &&
         props.board.columns?.map((column) => {

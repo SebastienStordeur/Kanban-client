@@ -1,20 +1,24 @@
 import React, { useContext, useState, useRef } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+
+import { AuthContext } from "../../../store/auth-context";
+import { ThemeContext } from "../../../store/theme-context";
+
 import Input from "../../UI/Input";
 import Textarea from "../../UI/Textarea";
 import InputValidator from "../InputValidator";
 import Button from "../../UI/Button";
 import Label from "../Label";
 import Modal from "../../UI/Modal";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-import { AuthContext } from "../../../store/auth-context";
-import { ThemeContext } from "../../../store/theme-context";
 import Select from "./Select";
+import Backdrop from "../Backdrop/Backdrop";
 
-const CreateTaskForm = (props) => {
+const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
-  const boardId = useParams();
+  const { id } = useParams();
 
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
@@ -35,18 +39,18 @@ const CreateTaskForm = (props) => {
     event.preventDefault();
     const subtasks = [];
 
-    for (const [key, value] of Object.entries(subtasksValues)) {
+    for (const [_, value] of Object.entries(subtasksValues)) {
       subtasks.push(value);
     }
 
     axios
       .post(
-        `http://localhost:8000/board/${boardId}/task`,
+        `http://localhost:8000/board/${id}/task`,
         {
           title: titleInputRef.current.value,
           description: descriptionInputRef.current.value,
           subtasks,
-          boardId: boardId.id,
+          boardId: id,
           columnId: columnId,
         },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
@@ -55,7 +59,7 @@ const CreateTaskForm = (props) => {
   };
 
   return (
-    <Modal className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form onSubmit={handleSubmit}>
         <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Add New Task</h2>
         <InputValidator>
@@ -82,7 +86,6 @@ const CreateTaskForm = (props) => {
                 return { ...prev, [index]: { title: event.target.value } };
               });
             };
-
             return <Input className="mt-2" palceholder="Subtask name" key={index} onChange={handleChange} />;
           })}
         </InputValidator>
@@ -96,6 +99,18 @@ const CreateTaskForm = (props) => {
         </Button>
       </form>
     </Modal>
+  );
+};
+
+const CreateTaskForm = (props) => {
+  return (
+    <React.Fragment>
+      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
+      {ReactDOM.createPortal(
+        <ModalOverlay onClick={props.onClick} board={props.board} />,
+        document.getElementById("modal-root")
+      )}
+    </React.Fragment>
   );
 };
 
