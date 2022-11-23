@@ -22,6 +22,7 @@ const BoardPage = (props) => {
       })
       .then((res) => setBoard(res.data))
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 403) setAccessDenied(true);
       });
   }, [id]);
