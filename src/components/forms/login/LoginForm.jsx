@@ -62,7 +62,9 @@ const LoginForm = () => {
         )
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          navigate("/");
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         })
         .catch((err) => {
           console.log(err);

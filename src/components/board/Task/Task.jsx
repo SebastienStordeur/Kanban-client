@@ -1,14 +1,27 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 import EditTaskForm from "../../forms/edit-task/EditTaskForm";
 
 const Task = (props) => {
+  const { id } = useParams();
+  const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
-  const [editTaskIsOpen, setTaskIsOpen] = useState(false);
+  const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
   const completedTasks = props.task.subtasks.filter((subtask) => subtask.isCompleted === true);
 
   const openTaskForm = () => {
-    setTaskIsOpen((prevValue) => !prevValue);
+    setEditTaskIsOpen((prevValue) => !prevValue);
+    if (editTaskIsOpen) {
+      axios
+        .get(`http://localhost:8000/board/${id}`, {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        })
+        .then((res) => props.setBoard(res.data))
+        .catch((err) => console.log(err));
+    }
   };
 
   return (
