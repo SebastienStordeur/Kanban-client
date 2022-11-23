@@ -1,74 +1,46 @@
 import React, { useContext, useRef, useState } from "react";
-import axios from "axios";
-import { Link, redirect, useNavigate } from "react-router-dom";
-
-import { emailRegex } from "../../../utils/Regex/regex";
+import { Link } from "react-router-dom";
+import { formValidation } from "../../../services/FormValidations/EmailValidation";
+import { sendLoginRequest } from "../../../services/requests/LoginRequest";
+import { ThemeContext } from "../../../store/theme-context";
 import Input from "../../UI/Input";
 import Button from "../../UI/Button";
-import { emailValidation } from "../../../services/FormValidations/EmailValidation";
-import { sendLoginRequest } from "../../../services/requests/LoginRequest";
 import Modal from "../../UI/Modal";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
-import { ThemeContext } from "../../../store/theme-context";
-import { AuthContext } from "../../../store/auth-context";
 
 const LoginForm = () => {
-  const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
+
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
 
   const [emailHasError, setEmailHasError] = useState(false);
-
   const [emailMessageError, setEmailMessageError] = useState("");
+  const [passwordHasError, setPasswordHasError] = useState(false);
+  const [passwordMessageError, setPasswordMessageError] = useState();
   const [credentialsError, setCredentialsError] = useState(false);
-  const navigate = useNavigate();
 
-  const headers = {
-    "Content-Type": "application/json",
-  };
   const submitLogin = (event) => {
     event.preventDefault();
-
+    setCredentialsError(false);
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
 
-    if (email.trim() === "") {
-      setEmailHasError(true);
-      setEmailMessageError("Email can't be empty");
-    } else if (email.trim() !== "" && !emailRegex.test(email)) {
-      setEmailHasError(true);
-      setEmailMessageError("Wrong email format");
-    } else {
-      setEmailHasError(false);
-      setEmailMessageError("");
-    }
-
-    if (emailHasError) {
+    if (
+      !formValidation(
+        email,
+        setEmailHasError,
+        setEmailMessageError,
+        password,
+        setPasswordHasError,
+        setPasswordMessageError
+      )
+    ) {
       return;
     }
-
-    sendLoginRequest(email, password);
-    try {
-      axios
-        .post(
-          "http://localhost:8000/user/login",
-          {
-            email: emailInputRef.current.value,
-            password: passwordInputRef.current.value,
-          },
-          { headers }
-        )
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          window.location.reload();
-        })
-        .catch((err) => setCredentialsError(true));
-    } catch (err) {
-      console.log(err);
-    }
+    sendLoginRequest(email, password, setCredentialsError);
   };
 
   return (
@@ -79,14 +51,20 @@ const LoginForm = () => {
           <Label htmlFor="login-email" className="font-bold">
             Email
           </Label>
-          <Input type="email" id="login-email" ref={emailInputRef} />
-          {emailHasError && <p className="text-red">{emailMessageError}</p>}
+          <Input type="email" id="login-email" ref={emailInputRef} className={emailHasError ? "border-red" : ""} />
+          {emailHasError && <p className="text-red font-bold text-sm">{emailMessageError}</p>}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="login-password" className="font-bold">
             Password
           </Label>
-          <Input type="password" id="login-password" ref={passwordInputRef} />
+          <Input
+            type="password"
+            id="login-password"
+            ref={passwordInputRef}
+            className={passwordHasError ? "border-red" : ""}
+          />
+          {passwordHasError && <p className="text-red font-bold text-sm">{passwordMessageError}</p>}
         </InputValidator>
         <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8">
           Submit

@@ -13,13 +13,14 @@ import { emailRegex } from "../../../utils/Regex/regex";
 
 const SignupForm = () => {
   const theme = useContext(ThemeContext);
+
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
+
   const [emailHasError, setEmailHasError] = useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [passwordHasError, setPasswordHasError] = useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
-
   const [isSuccess, setIsSuccess] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -65,10 +66,9 @@ const SignupForm = () => {
           setIsSuccess(true);
           setSuccessMessage("Your account has been created");
         }
-        console.log("RESPONSE", res.response.data);
+        return isSuccess, successMessage;
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 400 && err.response.data.message === "Email already used") {
           setIsSuccess(false);
           setSuccessMessage("Email already used");
@@ -76,6 +76,7 @@ const SignupForm = () => {
           setIsSuccess(false);
           setSuccessMessage("An error has occured while processing your form");
         }
+        return isSuccess, successMessage;
       });
   };
 
@@ -85,12 +86,17 @@ const SignupForm = () => {
         <h1 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Sign up</h1>
         <InputValidator className="flex flex-col">
           <Label htmlFor="signup-email">Email</Label>
-          <Input type="email" id="signup-email" ref={emailInputRef} />
+          <Input type="email" id="signup-email" ref={emailInputRef} className={emailHasError ? "border-red" : ""} />
           {emailHasError && <p className="text-red font-bold text-sm">{emailErrorMessage}</p>}
         </InputValidator>
         <InputValidator className="flex flex-col">
           <Label htmlFor="signup-password">Password</Label>
-          <Input type="password" id="signup-password" ref={passwordInputRef} />
+          <Input
+            type="password"
+            id="signup-password"
+            ref={passwordInputRef}
+            className={passwordHasError ? "border-red" : ""}
+          />
           {passwordHasError && <p className="text-red font-bold text-sm">{passwordErrorMessage}</p>}
         </InputValidator>
         <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8">

@@ -1,27 +1,21 @@
 import { emailRegex } from "../../utils/Regex/regex";
+import { passwordValidation } from "./PasswordValidation";
 
-/* export const emailValidation = (email, setError, setMessage) => {
+export function formValidation(email, setEmailError, setEmailMessage, password, setPasswordError, setPasswordMessage) {
   if (email.trim() === "") {
-    setError(true);
-    setMessage("Email can't be empty");
+    setEmailError(true);
+    setEmailMessage("Email can't be empty");
+    passwordValidation(password, setPasswordError, setPasswordMessage);
+    return false;
   } else if (email.trim() !== "" && !emailRegex.test(email)) {
-    setError(true);
-    setMessage("Wrong email format");
+    setEmailError(true);
+    setEmailMessage("Wrong email format");
+    passwordValidation(password, setPasswordError, setPasswordMessage);
+    return false;
   } else {
-    setError(false);
-    setMessage("");
+    setEmailError(false);
+    setEmailMessage("");
+    if (!passwordValidation(password, setPasswordError, setPasswordMessage)) return;
+    return true;
   }
-}; */
-export const emailValidation = (email, error, setMessage) => {
-  if (email.trim() === "") {
-    error = true;
-    setMessage("Email can't be empty");
-  } else if (email.trim() !== "" && !emailRegex.test(email)) {
-    error = true;
-    setMessage("Wrong email format");
-  } else {
-    error = false;
-    setMessage("");
-  }
-  console.log(error);
-};
+}
