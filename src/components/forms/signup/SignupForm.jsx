@@ -9,18 +9,20 @@ import Label from "../Label";
 import InputValidator from "../InputValidator";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
 import { ThemeContext } from "../../../store/theme-context";
-import { emailRegex } from "../../../utils/Regex/regex";
+import { formValidation } from "../../../services/FormValidations/EmailValidation";
+import { sendSignupRequest } from "../../../services/requests/SignupRequest";
 
 const SignupForm = () => {
   const theme = useContext(ThemeContext);
 
+  const formRef = useRef(null);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
 
   const [emailHasError, setEmailHasError] = useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+  const [emailErrorMessage, setEmailMessageError] = useState("");
   const [passwordHasError, setPasswordHasError] = useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState("");
+  const [passwordErrorMessage, setPasswordMessageError] = useState("");
   const [isSuccess, setIsSuccess] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -28,61 +30,28 @@ const SignupForm = () => {
     event.preventDefault();
     setIsSuccess(null);
     setSuccessMessage("");
+    const email = emailInputRef.current.value;
+    const password = passwordInputRef.current.value;
 
-    if (emailInputRef.current.value.trim() === "") {
-      setEmailHasError(true);
-      setEmailErrorMessage("Can't be empty");
-      if (passwordInputRef.current.value.trim().length < 8) {
-        setPasswordHasError(true);
-        setPasswordErrorMessage("Password must be at least 8 caracters long");
-      }
+    if (
+      !formValidation(
+        email,
+        setEmailHasError,
+        setEmailMessageError,
+        password,
+        setPasswordHasError,
+        setPasswordMessageError
+      )
+    ) {
       return;
     }
 
-    if (!emailRegex.test(emailInputRef.current.value)) {
-      setEmailHasError(true);
-      setEmailErrorMessage("Wrong email format");
-    } else {
-      setEmailHasError(false);
-      setEmailErrorMessage("");
-    }
-
-    if (passwordInputRef.current.value.trim().length < 8) {
-      setPasswordHasError(true);
-      setPasswordErrorMessage("Password must be at least 8 caracters long");
-      return;
-    } else {
-      setPasswordHasError(false);
-      setPasswordErrorMessage("");
-    }
-
-    axios
-      .post("http://localhost:8000/user/signup", {
-        email: emailInputRef.current.value,
-        password: passwordInputRef.current.value,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setIsSuccess(true);
-          setSuccessMessage("Your account has been created");
-        }
-        return isSuccess, successMessage;
-      })
-      .catch((err) => {
-        if (err.response.status === 400 && err.response.data.message === "Email already used") {
-          setIsSuccess(false);
-          setSuccessMessage("Email already used");
-        } else {
-          setIsSuccess(false);
-          setSuccessMessage("An error has occured while processing your form");
-        }
-        return isSuccess, successMessage;
-      });
+    sendSignupRequest(email, password, setIsSuccess, setSuccessMessage, formRef);
   };
 
   return (
     <Modal>
-      <form id="signup-form" onSubmit={submitSignup} className="flex flex-col">
+      <form id="signup-form" ref={formRef} onSubmit={submitSignup} className="flex flex-col">
         <h1 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Sign up</h1>
         <InputValidator className="flex flex-col">
           <Label htmlFor="signup-email">Email</Label>
