@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = React.createContext({
   isAuthenticated: false,
@@ -12,6 +13,7 @@ export const AuthContextProvider = (props) => {
 
   const checkIfAuthenticated = () => {
     token ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    return isAuthenticated;
   };
 
   const defaultValue = {

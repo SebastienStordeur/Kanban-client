@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 
 import { emailRegex } from "../../../utils/Regex/regex";
 import Input from "../../UI/Input";
@@ -12,8 +12,10 @@ import InputValidator from "../InputValidator";
 import Label from "../Label";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
 import { ThemeContext } from "../../../store/theme-context";
+import { AuthContext } from "../../../store/auth-context";
 
 const LoginForm = () => {
+  const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
@@ -43,7 +45,6 @@ const LoginForm = () => {
       setEmailHasError(false);
       setEmailMessageError("");
     }
-    console.log("hasError", emailHasError);
 
     if (emailHasError) {
       return;
@@ -62,14 +63,9 @@ const LoginForm = () => {
         )
         .then((res) => {
           localStorage.setItem("token", res.data.token);
-          setTimeout(() => {
-            navigate("/");
-          }, 2000);
+          window.location.reload();
         })
-        .catch((err) => {
-          console.log(err);
-          setCredentialsError(true);
-        });
+        .catch((err) => setCredentialsError(true));
     } catch (err) {
       console.log(err);
     }
