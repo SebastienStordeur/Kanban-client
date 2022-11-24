@@ -14,15 +14,18 @@ import Label from "../Label";
 import Modal from "../../UI/Modal";
 import Select from "./Select";
 import Backdrop from "../Backdrop/Backdrop";
+import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const { id } = useParams();
+  const token = auth.token;
 
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
 
+  const [titleHasError, setTitleHasError] = useState(false);
   const [numberOfSubtasks, setNumberOfSubtasks] = useState(2);
   const [subtasksValues, setSubtasksValue] = useState([{ title: "" }]);
   const [columnId, setColumnId] = useState(props.board.columns[0].id);
@@ -38,6 +41,11 @@ const ModalOverlay = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const subtasks = [];
+
+    if (titleInputRef.current.value.trim() === "") {
+      setTitleHasError(true);
+      return;
+    }
 
     for (const [_, value] of Object.entries(subtasksValues)) {
       subtasks.push(value);
@@ -55,7 +63,10 @@ const ModalOverlay = (props) => {
         },
         { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
       )
-      .then((response) => console.log(response));
+      .then((response) => {
+        props.onClick();
+        getBoardRequest(id, token, props.setBoard);
+      });
   };
 
   return (
@@ -67,6 +78,7 @@ const ModalOverlay = (props) => {
             Title
           </Label>
           <Input placeholder="e.g. Take coffee break" id="title" ref={titleInputRef} />
+          {titleHasError && <p className="text-red font-bold text-sm">Can't be empty</p>}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="description" className="font-bold text-xs mb-2">
@@ -107,7 +119,7 @@ const CreateTaskForm = (props) => {
     <React.Fragment>
       {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
       {ReactDOM.createPortal(
-        <ModalOverlay onClick={props.onClick} board={props.board} />,
+        <ModalOverlay onClick={props.onClick} board={props.board} setBoard={props.setBoard} />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>

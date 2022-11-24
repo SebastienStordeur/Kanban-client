@@ -4,7 +4,6 @@ import HomeSection from "../components/home/HomeSection";
 import Header from "../components/layout/Header";
 
 const Home = () => {
-  console.log("try again");
   return (
     <React.Fragment>
       <Header />
