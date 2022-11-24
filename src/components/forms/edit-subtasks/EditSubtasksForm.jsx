@@ -33,7 +33,7 @@ const ModalOverlay = (props) => {
           return <Subtask key={subtask.id} subtask={subtask} />;
         })}
       </Modal>
-      {deleteTaskIsOpen && <DeleteTaskForm title={props.task.title} onClick={openDeleteForm} />}
+      {deleteTaskIsOpen && <DeleteTaskForm id={props.task.id} title={props.task.title} onClick={openDeleteForm} />}
     </React.Fragment>
   );
 };
