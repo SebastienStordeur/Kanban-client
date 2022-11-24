@@ -3,13 +3,14 @@ import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
-import EditTaskForm from "../../forms/edit-task/EditTaskForm";
+import EditSubTasksForm from "../../forms/edit-subtasks/EditSubtasksForm";
 
 const Task = (props) => {
   const { id } = useParams();
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
+
   const completedTasks = props.task.subtasks.filter((subtask) => subtask.isCompleted === true);
 
   const openTaskForm = () => {
@@ -41,7 +42,7 @@ const Task = (props) => {
           </p>
         )}
       </article>
-      {editTaskIsOpen && <EditTaskForm task={props.task} onClick={openTaskForm} />}
+      {editTaskIsOpen && <EditSubTasksForm task={props.task} onClick={openTaskForm} />}
     </React.Fragment>
   );
 };

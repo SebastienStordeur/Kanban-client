@@ -37,7 +37,9 @@ const Navbar = (props) => {
           )}
         </div>
       </nav>
-      {deleteBoardIsOpen && location.pathname === `/board/${id}` && <DeleteBoardForm onClick={openDeleteBoard} />}
+      {deleteBoardIsOpen && location.pathname === `/board/${id}` && (
+        <DeleteBoardForm onClick={openDeleteBoard} title={props.board.title} />
+      )}
       {addTaskIsOpen && location.pathname === `/board/${id}` && (
         <CreateTaskForm board={props.board} setBoard={props.setBoard} onClick={openAddTaskForm} />
       )}

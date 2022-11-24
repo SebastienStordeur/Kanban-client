@@ -1,19 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 
 import { ThemeContext } from "../../store/theme-context";
 
 import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
-import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
 
 const BoardSection = (props) => {
   const theme = useContext(ThemeContext);
-  const [deleteBoardIsOpen, setDeleteBoardIsOpen] = useState(false);
-
-  const closeDeleteModal = () => {
-    setDeleteBoardIsOpen(false);
-  };
-
   return (
     <section
       id="board-section"
@@ -31,7 +24,6 @@ const BoardSection = (props) => {
       {props.access && (
         <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
       )}
-      {deleteBoardIsOpen && <DeleteBoardForm title={board.title} onClick={closeDeleteModal} />}
     </section>
   );
 };
