@@ -20,7 +20,7 @@ const Subtask = (props) => {
   return (
     <article
       className={`${
-        theme.theme === "dark" ? " bg-veryDarkGrey" : "bg-lightGrey"
+        theme.theme === "dark" ? " bg-veryDarkGrey text-white" : "bg-lightGrey"
       } flex items-center h-10 mb-2 px-4 rounded-md`}
     >
       <input type="checkbox" defaultChecked={props.subtask.isCompleted} onChange={updateSubtask}></input>

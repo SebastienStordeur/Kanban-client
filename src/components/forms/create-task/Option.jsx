@@ -7,7 +7,9 @@ const Option = (props) => {
     <li
       value={props.value}
       id={props.id}
-      className={`${theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"} h-10`}
+      className={`${
+        theme.theme === "dark" ? "bg-veryDarkGrey text-white" : "bg-lightGrey"
+      } h-10 border-lines px-4 flex items-center text-sm`}
       onClick={() => props.onClick(props.value, props.id)}
     >
       {props.value}

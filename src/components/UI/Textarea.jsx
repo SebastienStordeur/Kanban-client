@@ -8,7 +8,7 @@ const Textarea = forwardRef((props, ref) => {
     <textarea
       className={`${
         theme.theme === "dark" ? "bg-darkGrey text-white placeholder:text-white" : "placeholder:text-black"
-      } h-28 p-2 border rounded-sm resize-none outline-none border-lines text-xs placeholder:text-xs placeholder:opacity-25`}
+      } h-28 p-2 border rounded-sm resize-none outline-none border-lines text-sm placeholder:text-sm placeholder:opacity-25`}
       id={props.id}
       ref={ref}
       placeholder={props.placeholder}
