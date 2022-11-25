@@ -17,6 +17,7 @@ const Input = forwardRef((props, ref) => {
         props.className || ""
       }`}
       placeholder={props.placeholder}
+      value={props.value}
       onChange={props.onChange}
     />
   );

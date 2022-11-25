@@ -40,7 +40,6 @@ const ModalOverlay = (props) => {
 };
 
 const EditSubTasksForm = (props) => {
-  console.log(props.onClick);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}

@@ -37,7 +37,6 @@ const ModalOverlay = (props) => {
 };
 
 const DeleteTaskForm = (props) => {
-  console.log(props.onClose);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(
