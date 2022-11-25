@@ -14,7 +14,6 @@ const ModalOverlay = (props) => {
 
   const openDeleteForm = () => {
     setDeleteTaskIsOpen((prev) => !prev);
-    props.onClick;
   };
 
   return (
@@ -33,16 +32,22 @@ const ModalOverlay = (props) => {
           return <Subtask key={subtask.id} subtask={subtask} />;
         })}
       </Modal>
-      {deleteTaskIsOpen && <DeleteTaskForm id={props.task.id} title={props.task.title} onClick={openDeleteForm} />}
+      {deleteTaskIsOpen && (
+        <DeleteTaskForm id={props.task.id} title={props.task.title} onClick={openDeleteForm} onClose={props.onClick} />
+      )}
     </React.Fragment>
   );
 };
 
 const EditSubTasksForm = (props) => {
+  console.log(props.onClick);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
-      {ReactDOM.createPortal(<ModalOverlay task={props.task} />, document.getElementById("modal-root"))}
+      {ReactDOM.createPortal(
+        <ModalOverlay task={props.task} onClick={props.onClick} />,
+        document.getElementById("modal-root")
+      )}
     </React.Fragment>
   );
 };

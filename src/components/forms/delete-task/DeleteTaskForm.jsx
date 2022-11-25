@@ -1,22 +1,23 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
-import { useParams } from "react-router-dom";
 import { ThemeContext } from "../../../store/theme-context";
 import Button from "../../UI/Button";
 import Modal from "../../UI/Modal";
 import Backdrop from "../Backdrop/Backdrop";
 
 const ModalOverlay = (props) => {
-  console.log(props);
   const theme = useContext(ThemeContext);
-  //id a modifier, id doit etre lid de la tache
+
   const deleteTask = () => {
     axios
       .delete(`http://localhost:8000/board/task/${props.id}`, {
         params: { id: props.id },
       })
-      .then((response) => console.log(response))
+      .then(() => {
+        props.onClick();
+        props.onClose();
+      })
       .catch((err) => console.error(err));
   };
   return (
@@ -36,6 +37,7 @@ const ModalOverlay = (props) => {
 };
 
 const DeleteTaskForm = (props) => {
+  console.log(props.onClose);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(
@@ -43,7 +45,7 @@ const DeleteTaskForm = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay id={props.id} onClick={props.onClick} title={props.title} />,
+        <ModalOverlay id={props.id} onClick={props.onClick} title={props.title} onClose={props.onClose} />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>
