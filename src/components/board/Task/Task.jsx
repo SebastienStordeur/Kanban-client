@@ -11,7 +11,9 @@ const Task = (props) => {
   const theme = useContext(ThemeContext);
   const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
 
-  const completedTasks = props.task.subtasks.filter((subtask) => subtask.isCompleted === true);
+  const completedTasks = props.task.subtasks.filter(
+    (subtask) => subtask.isCompleted === true
+  );
 
   const openTaskForm = () => {
     setEditTaskIsOpen((prevValue) => !prevValue);
@@ -33,7 +35,11 @@ const Task = (props) => {
           theme.theme === "dark" ? "bg-darkGrey" : "bg-white"
         } flex flex-col justify-center text-left w-72 h-24 font-bold rounded-lg px-4 py-6 my-6 cursor-pointer`}
       >
-        <h3 className={`${theme.theme === "dark" ? "text-white" : "text-black"} tracking-wide text-sm`}>
+        <h3
+          className={`${
+            theme.theme === "dark" ? "text-white" : "text-black"
+          } tracking-wide text-sm`}
+        >
           {props.task.title}
         </h3>
         {props.task.subtasks.length >= 1 && (
@@ -42,7 +48,9 @@ const Task = (props) => {
           </p>
         )}
       </article>
-      {editTaskIsOpen && <EditSubTasksForm task={props.task} onClick={openTaskForm} />}
+      {editTaskIsOpen && (
+        <EditSubTasksForm task={props.task} onClick={openTaskForm} />
+      )}
     </React.Fragment>
   );
 };

@@ -18,10 +18,14 @@ const App = () => {
     <BrowserRouter>
       <Suspense fallback="">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {auth.isAuthenticated && <Route path="/" element={<Home />} />}
           {!auth.isAuthenticated && <Route path="/login" element={<Login />} />}
-          {!auth.isAuthenticated && <Route path="/signup" element={<Signup />} />}
-          <Route path="/board/:id" element={<BoardPage />} />
+          {!auth.isAuthenticated && (
+            <Route path="/signup" element={<Signup />} />
+          )}
+          {auth.isAuthenticated && (
+            <Route path="/board/:id" element={<BoardPage />} />
+          )}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

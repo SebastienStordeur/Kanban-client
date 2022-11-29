@@ -53,7 +53,7 @@ const ModalOverlay = (props) => {
 
     axios
       .post(
-        `http://localhost:8000/board/${id}/task`,
+        `http://localhost:8000/task/`,
         {
           title: titleInputRef.current.value,
           description: descriptionInputRef.current.value,
