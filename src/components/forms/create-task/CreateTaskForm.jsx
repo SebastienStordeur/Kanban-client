@@ -61,24 +61,41 @@ const ModalOverlay = (props) => {
           boardId: id,
           columnId: columnId,
         },
-        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
       )
-      .then((response) => {
-        props.onClick();
+      .then(() => {
         getBoardRequest(id, token, props.setBoard);
+        props.onClick();
       });
   };
 
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form onSubmit={handleSubmit}>
-        <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Add New Task</h2>
+        <h2
+          className={`${
+            theme.theme === "dark" ? "text-white" : "text-black"
+          } font-bold text-lg`}
+        >
+          Add New Task
+        </h2>
         <InputValidator>
           <Label htmlFor="title" className="font-bold text-xs mb-2">
             Title
           </Label>
-          <Input placeholder="e.g. Take coffee break" id="title" ref={titleInputRef} />
-          {titleHasError && <p className="text-red font-bold text-sm">Can't be empty</p>}
+          <Input
+            placeholder="e.g. Take coffee break"
+            id="title"
+            ref={titleInputRef}
+          />
+          {titleHasError && (
+            <p className="text-red font-bold text-sm">Can't be empty</p>
+          )}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="description" className="font-bold text-xs mb-2">
@@ -98,10 +115,20 @@ const ModalOverlay = (props) => {
                 return { ...prev, [index]: { title: event.target.value } };
               });
             };
-            return <Input className="mt-2" palceholder="Subtask name" key={index} onChange={handleChange} />;
+            return (
+              <Input
+                className="mt-2"
+                palceholder="Subtask name"
+                key={index}
+                onChange={handleChange}
+              />
+            );
           })}
         </InputValidator>
-        <Button className="bg-purple bg-opacity-10 mt-3 text-purple" onClick={createSubtask}>
+        <Button
+          className="bg-purple bg-opacity-10 mt-3 text-purple"
+          onClick={createSubtask}
+        >
           + Add New Subtask
         </Button>
         <Label>Status</Label>
@@ -117,9 +144,16 @@ const ModalOverlay = (props) => {
 const CreateTaskForm = (props) => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
       {ReactDOM.createPortal(
-        <ModalOverlay onClick={props.onClick} board={props.board} setBoard={props.setBoard} />,
+        <Backdrop onClick={props.onClick} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay
+          onClick={props.onClick}
+          board={props.board}
+          setBoard={props.setBoard}
+        />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>

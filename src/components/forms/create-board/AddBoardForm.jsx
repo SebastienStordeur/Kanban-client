@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 
 import { AuthContext } from "../../../store/auth-context";
-import { BoardContext } from "../../../store/boards-context";
 import { ThemeContext } from "../../../store/theme-context";
 
 import Button from "../../UI/Button";
@@ -13,10 +12,9 @@ import Backdrop from "../Backdrop/Backdrop";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
 
-const ModalOverlay = () => {
+const ModalOverlay = (props) => {
   const theme = useContext(ThemeContext);
   const auth = useContext(AuthContext);
-  const board = useContext(BoardContext);
 
   const boardInputRef = useRef(null);
 
@@ -47,15 +45,29 @@ const ModalOverlay = () => {
           title: boardInputRef.current.value,
           columns: columns,
         },
-        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.token}` } }
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
       )
-      .then(() => board.getBoards())
+      .then((board) => {
+        props.onAdd((prev) => [...prev, board.data]);
+        props.onClick();
+      })
       .catch((err) => console.error(err));
   };
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form id="create-board-form" onSubmit={handleSubmit}>
-        <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Add New Board</h2>
+        <h2
+          className={`${
+            theme.theme === "dark" ? "text-white" : "text-black"
+          } font-bold text-lg`}
+        >
+          Add New Board
+        </h2>
         <InputValidator>
           <Label htmlFor="board-name">Board Name</Label>
           <Input id="board-name" ref={boardInputRef} />
@@ -68,10 +80,20 @@ const ModalOverlay = () => {
                 return { ...prev, [index]: { column: event.target.value } };
               });
             };
-            return <Input className="mt-2" placeholder="Column name" key={index} onChange={handleChange} />;
+            return (
+              <Input
+                className="mt-2"
+                placeholder="Column name"
+                key={index}
+                onChange={handleChange}
+              />
+            );
           })}
         </InputValidator>
-        <Button className="bg-purple bg-opacity-10 mt-3 text-purple" onClick={createColumn}>
+        <Button
+          className="bg-purple bg-opacity-10 mt-3 text-purple"
+          onClick={createColumn}
+        >
           + Add New Column
         </Button>
         <Button type="submit" className="bg-purple text-white mt-3">
@@ -83,10 +105,17 @@ const ModalOverlay = () => {
 };
 
 const AddBoardForm = (props) => {
+  console.log(props);
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
-      {ReactDOM.createPortal(<ModalOverlay onClick={props.onClick} />, document.getElementById("modal-root"))}
+      {ReactDOM.createPortal(
+        <Backdrop onClick={props.onClick} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay onAdd={props.onAdd} onClick={props.onClick} />,
+        document.getElementById("modal-root")
+      )}
     </React.Fragment>
   );
 };

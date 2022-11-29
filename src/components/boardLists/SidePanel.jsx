@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../store/auth-context";
-import { BoardContext } from "../../store/boards-context";
 import { ThemeContext } from "../../store/theme-context";
 import AddBoardForm from "../forms/create-board/AddBoardForm";
 
@@ -8,11 +8,11 @@ import ThemeSwitch from "../themeSwitch/ThemeSwitch";
 import AddBoard from "./AddBoard";
 import Board from "./Board";
 
-const SidePanel = (props) => {
+const SidePanel = () => {
   const auth = useContext(AuthContext);
-  const board = useContext(BoardContext);
   const theme = useContext(ThemeContext);
 
+  const [boards, setBoards] = useState([]);
   const [addBoardIsOpen, setAddBoardIsOpen] = useState(false);
 
   const openAddBoardHandler = () => {
@@ -20,7 +20,12 @@ const SidePanel = (props) => {
   };
 
   useEffect(() => {
-    board.getBoards();
+    axios
+      .get("http://localhost:8000/board", {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
+      .then((response) => setBoards(response.data))
+      .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -32,9 +37,9 @@ const SidePanel = (props) => {
       >
         <div>
           <h2 className="font-bold text-sm tracking-widest text-mediumGrey px-6 mb-5">
-            ALL BOARDS ({board.boards.length})
+            ALL BOARDS ({boards.length})
           </h2>
-          {board.boards.map((board) => (
+          {boards.map((board) => (
             <Board board={board} key={board.id} />
           ))}
           {auth.isAuthenticated && <AddBoard onClick={openAddBoardHandler} />}
@@ -43,7 +48,9 @@ const SidePanel = (props) => {
           <ThemeSwitch />
         </div>
       </section>
-      {addBoardIsOpen && <AddBoardForm onClick={openAddBoardHandler} />}
+      {addBoardIsOpen && (
+        <AddBoardForm onClick={openAddBoardHandler} onAdd={setBoards} />
+      )}
     </React.Fragment>
   );
 };
