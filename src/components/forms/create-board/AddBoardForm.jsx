@@ -19,7 +19,7 @@ const ModalOverlay = (props) => {
   const boardInputRef = useRef(null);
 
   const [numberOfColumns, setNumberOfColumns] = useState(2);
-  const [columnsValues, setColumnsValue] = useState([{ column: "" }]);
+  const [columnsValues, setColumnsValue] = useState([{ title: "" }]);
 
   let columnsArray = Array.from({ length: numberOfColumns });
 
@@ -77,7 +77,7 @@ const ModalOverlay = (props) => {
           {columnsArray.map((_, index) => {
             const handleChange = (event) => {
               setColumnsValue((prev) => {
-                return { ...prev, [index]: { column: event.target.value } };
+                return { ...prev, [index]: { title: event.target.value } };
               });
             };
             return (
@@ -121,23 +121,3 @@ const AddBoardForm = (props) => {
 };
 
 export default AddBoardForm;
-
-/* [
-	{
-		id: 1,
-		title: "title",
-		columns: [
-				{
-					title: "To do",
-					tasks: [ 
-            { 
-              title: "task" 
-              subtasks: [ 
-              {title: "subtask", 
-              isCompleted: true
-            }] 
-          ]
-				}
-			 ]
-	}
-] */

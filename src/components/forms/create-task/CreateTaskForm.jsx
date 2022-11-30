@@ -28,7 +28,7 @@ const ModalOverlay = (props) => {
   const [titleHasError, setTitleHasError] = useState(false);
   const [numberOfSubtasks, setNumberOfSubtasks] = useState(2);
   const [subtasksValues, setSubtasksValue] = useState([{ title: "" }]);
-  const [columnId, setColumnId] = useState(props.board.columns[0].id);
+  const [columnId, setColumnId] = useState(props.board.columns[0]._id);
 
   let subtasksArray = Array.from({ length: numberOfSubtasks });
 
@@ -132,7 +132,11 @@ const ModalOverlay = (props) => {
           + Add New Subtask
         </Button>
         <Label>Status</Label>
-        <Select columns={props.board.columns} setId={setColumnId} />
+        <Select
+          columns={props.board.columns}
+          setId={setColumnId}
+          id={columnId}
+        />
         <Button type="submit" className="bg-purple text-white">
           Create Task
         </Button>
