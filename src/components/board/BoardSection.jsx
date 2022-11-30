@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-
 import { ThemeContext } from "../../store/theme-context";
-
 import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
 
@@ -17,12 +15,23 @@ const BoardSection = (props) => {
       {props.board &&
         props.board.columns.length > 0 &&
         props.board.columns.map((column) => {
-          const filteredTasks = props.board.tasks.filter((task) => task.columnId === column.id);
-          return <Column key={column.id} column={column} tasks={filteredTasks} setBoard={props.setBoard} />;
+          const filteredTasks = props.board.tasks.filter(
+            (task) => task.columnId === column.id
+          );
+          return (
+            <Column
+              key={column.id}
+              column={column}
+              tasks={filteredTasks}
+              setBoard={props.setBoard}
+            />
+          );
         })}
       {props.board && props.board.columns.length === 0 && <EmptyBoard />}
       {props.access && (
-        <p className="flex justify-center items-center w-full">You don't have the rights to access this board</p>
+        <p className="flex justify-center items-center w-full">
+          You don't have the rights to access this board
+        </p>
       )}
     </section>
   );

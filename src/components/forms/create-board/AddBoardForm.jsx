@@ -121,3 +121,23 @@ const AddBoardForm = (props) => {
 };
 
 export default AddBoardForm;
+
+/* [
+	{
+		id: 1,
+		title: "title",
+		columns: [
+				{
+					title: "To do",
+					tasks: [ 
+            { 
+              title: "task" 
+              subtasks: [ 
+              {title: "subtask", 
+              isCompleted: true
+            }] 
+          ]
+				}
+			 ]
+	}
+] */

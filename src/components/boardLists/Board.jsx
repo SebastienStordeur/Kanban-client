@@ -11,7 +11,7 @@ const Board = (props) => {
   return (
     <div className="w-60 h-12 text-black cursor-pointer pr-6">
       <NavLink
-        to={`/board/${props.board.id}`}
+        to={`/board/${props.board._id}`}
         className={({ isActive }) =>
           isActive
             ? "bg-purple text-white h-full w-full flex items-center pl-6 rounded-r-3xl"
