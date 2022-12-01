@@ -55,11 +55,13 @@ const ModalOverlay = (props) => {
       .post(
         `http://localhost:8000/task/`,
         {
-          title: titleInputRef.current.value,
-          description: descriptionInputRef.current.value,
-          subtasks,
-          boardId: id,
-          columnId: columnId,
+          id,
+          task: {
+            title: titleInputRef.current.value,
+            description: descriptionInputRef.current.value,
+            columnId: columnId,
+            subtasks,
+          },
         },
         {
           headers: {

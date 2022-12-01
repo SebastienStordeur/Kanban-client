@@ -4,7 +4,6 @@ import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
 
 const BoardSection = (props) => {
-  console.log(props);
   const theme = useContext(ThemeContext);
   return (
     <section
@@ -16,15 +15,14 @@ const BoardSection = (props) => {
       {props.board &&
         props.board.columns.length > 0 &&
         props.board.columns.map((column) => {
-          /*           const filteredTasks = props.board.tasks.filter(
-            (task) => task.taskId === column._id
-          ); */
-
+          const tasks = props.board.tasks.filter((task) => {
+            return task.columnId === column._id;
+          });
           return (
             <Column
               key={column._id}
               column={column}
-              /* tasks={filteredTasks} */
+              tasks={tasks}
               setBoard={props.setBoard}
             />
           );

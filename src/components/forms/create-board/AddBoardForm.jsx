@@ -53,6 +53,7 @@ const ModalOverlay = (props) => {
         }
       )
       .then((board) => {
+        console.log(board);
         props.onAdd((prev) => [...prev, board.data]);
         props.onClick();
       })
