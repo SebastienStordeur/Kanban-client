@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
-import { ThemeContext } from "../../../store/theme-context";
 import { AuthContext } from "../../../store/auth-context";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
@@ -13,17 +12,14 @@ import Label from "../Label";
 import Title from "../Title";
 
 const ModalOverlay = (props) => {
-  console.log("EDIT BOARD", props);
   const auth = useContext(AuthContext);
-  const theme = useContext(ThemeContext);
   const { id } = useParams();
 
   const boardInputRef = useRef(props.board.title);
   const [numberOfColumns, setNumberOfColumns] = useState(
     props.board.columns.length
   );
-
-  const [columns, setColumnsValue] = useState([]);
+  const [columnsValues, setColumnsValues] = useState(props.board.columns);
 
   let columnsArray = Array.from({ length: numberOfColumns });
 
@@ -35,27 +31,23 @@ const ModalOverlay = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const columns = [];
 
-    const boardUpdate = {
-      id,
-      title: boardInputRef.current.value,
-    };
+    for (const [_, value] of Object.entries(columnsValues)) {
+      columns.push(value);
+    }
 
-    console.log(boardUpdate);
-    /* axios.put(
+    axios.put(
       `http://localhost:8000/board/${id}`,
       {
         id,
         title: boardInputRef.current.value,
-        columns: [
-          { title: "test151", id: "6388bfff30d83d81317a9c54" },
-          { title: "TODO", id: "6388bfff30d83d81317a9c55" },
-        ],
+        columns: columns,
       },
       {
         headers: { Authorization: `Bearer ${auth.token}` },
       }
-    ); */
+    );
   };
 
   return (
@@ -74,17 +66,28 @@ const ModalOverlay = (props) => {
           <Label htmlFor="">Board Columns</Label>
           {columnsArray.map((_, index) => {
             const handleChange = (event) => {
-              setColumnsValue((prev) => {
-                return { ...prev, [index]: { title: event.target.value } };
+              setColumnsValues((prev) => {
+                return {
+                  ...prev,
+                  [index]: {
+                    ...columnsValues[index],
+                    title: event.target.value,
+                  },
+                };
               });
             };
+
             return (
               <Input
                 className="mt-2"
                 placeholder="Column name"
                 key={index}
-                value={props.board.columns[index].title || ""}
-                /* onChange={handleChange} */
+                value="" /* {
+                  columnsValues[index].title
+                    ? props.board.columns[index].title
+                    : ""
+                } */
+                onChange={handleChange}
               />
             );
           })}
@@ -111,7 +114,7 @@ const EditBoardForm = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay /* onClick={props.onClick} */ board={props.board} />,
+        <ModalOverlay board={props.board} />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>

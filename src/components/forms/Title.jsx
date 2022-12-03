@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { ThemeContext } from "../../store/theme-context";
 
 const Title = (props) => {
@@ -12,6 +13,10 @@ const Title = (props) => {
       {props.children}
     </h2>
   );
+};
+
+Title.propTypes = {
+  children: PropTypes.string,
 };
 
 export default Title;

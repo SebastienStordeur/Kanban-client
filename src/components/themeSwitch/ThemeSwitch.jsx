@@ -21,8 +21,7 @@ const ThemeSwitch = () => {
   };
 
   useEffect(() => {
-    if (theme.theme === "dark") setThemeBoolean(true);
-    else setThemeBoolean(false);
+    theme.theme === "dark" ? setThemeBoolean(true) : setThemeBoolean(false);
   }, [theme.theme]);
 
   return (
@@ -37,7 +36,11 @@ const ThemeSwitch = () => {
         data-theme={themeBoolean}
         onClick={toggleSwitch}
       >
-        <motion.div className="w-3.5 h-3.5 bg-white mx-0.5 rounded-full" layout transition={spring} />
+        <motion.div
+          className="w-3.5 h-3.5 bg-white mx-0.5 rounded-full"
+          layout
+          transition={spring}
+        />
       </div>
       <img src={Moon} alt="Dark theme" />
     </div>

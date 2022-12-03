@@ -9,13 +9,13 @@ import Modal from "../../UI/Modal";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
+import ErrorMessage from "../ErrorMessage";
+import Title from "../Title";
 
 const LoginForm = () => {
   const theme = useContext(ThemeContext);
-
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
-
   const [emailHasError, setEmailHasError] = useState(false);
   const [emailMessageError, setEmailMessageError] = useState("");
   const [passwordHasError, setPasswordHasError] = useState(false);
@@ -46,13 +46,18 @@ const LoginForm = () => {
   return (
     <Modal>
       <form id="login-form" onSubmit={submitLogin} className="flex flex-col">
-        <h1 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Login</h1>
+        <Title>Login</Title>
         <InputValidator>
           <Label htmlFor="login-email" className="font-bold">
             Email
           </Label>
-          <Input type="email" id="login-email" ref={emailInputRef} className={emailHasError ? "border-red" : ""} />
-          {emailHasError && <p className="text-red font-bold text-sm">{emailMessageError}</p>}
+          <Input
+            type="email"
+            id="login-email"
+            ref={emailInputRef}
+            className={emailHasError ? "border-red" : ""}
+          />
+          {emailHasError && <ErrorMessage>{emailMessageError}</ErrorMessage>}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="login-password" className="font-bold">
@@ -64,14 +69,23 @@ const LoginForm = () => {
             ref={passwordInputRef}
             className={passwordHasError ? "border-red" : ""}
           />
-          {passwordHasError && <p className="text-red font-bold text-sm">{passwordMessageError}</p>}
+          {passwordHasError && (
+            <ErrorMessage>{passwordMessageError}</ErrorMessage>
+          )}
         </InputValidator>
-        <Button type="submit" className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8">
+        <Button
+          type="submit"
+          className="bg-purple text-white transition-all hover:bg-lightPurple text-bold mt-8"
+        >
           Submit
         </Button>
-        {credentialsError && <p className="text-center text-red text-sm font-bold">Wrong email/password combination</p>}
+        {credentialsError && (
+          <ErrorMessage>Wrong email/password combination</ErrorMessage>
+        )}
         <p
-          className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-sm mb-2 text-center mt-2`}
+          className={`${
+            theme.theme === "dark" ? "text-white" : "text-black"
+          } font-bold text-sm mb-2 text-center mt-2`}
         >
           Need an account? &nbsp;
           <Link to="/signup" className="text-purple cursor-pointer font-bold">

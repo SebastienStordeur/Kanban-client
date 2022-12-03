@@ -7,7 +7,9 @@ const Label = (props) => {
   return (
     <label
       htmlFor={props.htmlFor}
-      className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-sm mb-2`}
+      className={`${
+        theme.theme === "dark" ? "text-white" : "text-black"
+      } font-bold text-sm mb-2`}
     >
       {props.children}
     </label>
@@ -17,5 +19,6 @@ const Label = (props) => {
 Label.propTypes = {
   htmlFor: PropTypes.string,
   className: PropTypes.string,
+  children: PropTypes.string,
 };
 export default Label;
