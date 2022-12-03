@@ -1,20 +1,22 @@
 import axios from "axios";
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 
-const Subtask = (props) => {
+const Subtask = ({ subtask }) => {
+  const { _id, title, isCompleted } = subtask;
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
-  let subtaskIsCompleted = props.subtask.isCompleted;
+  let subtaskIsCompleted = isCompleted;
 
   const updateSubtask = async () => {
     subtaskIsCompleted = !subtaskIsCompleted;
     axios
       .put(
-        `http://localhost:8000/task/subtask/${props.subtask.id}`,
+        `http://localhost:8000/task/subtask/${_id}`,
         {
-          id: props.subtask.id,
+          id: _id,
           isCompleted: subtaskIsCompleted,
         },
         { headers: { Authorization: `Bearer ${auth.token}` } }
@@ -31,12 +33,18 @@ const Subtask = (props) => {
     >
       <input
         type="checkbox"
-        defaultChecked={props.subtask.isCompleted}
+        defaultChecked={isCompleted}
         onChange={updateSubtask}
-      ></input>
-      <h3 className="text-xs ml-4">{props.subtask.title}</h3>
+      />
+      <h3 className="text-xs ml-4">{title}</h3>
     </article>
   );
+};
+
+Subtask.propTypes = {
+  _id: PropTypes.string,
+  title: PropTypes.string,
+  isCompleted: PropTypes.bool,
 };
 
 export default Subtask;

@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { ThemeContext } from "../../store/theme-context";
 import Column from "./Column/Column";
 import EmptyBoard from "./emptyBoard/EmptyBoard";
 
-const BoardSection = (props) => {
+const BoardSection = ({ access, board, setBoard }) => {
+  const { columns, tasks } = board;
   const theme = useContext(ThemeContext);
   return (
     <section
@@ -12,29 +14,38 @@ const BoardSection = (props) => {
         theme.theme === "dark" ? "bg-veryDarkGrey" : "bg-lightGrey"
       } px-2.5 w-full h-[calc(100vh-64px)] overflow-hidden flex font-bold text-mediumGrey text-lg`}
     >
-      {props.board &&
-        props.board.columns.length > 0 &&
-        props.board.columns.map((column) => {
-          const tasks = props.board.tasks.filter((task) => {
+      {board &&
+        columns.length > 0 &&
+        columns.map((column) => {
+          const tasksList = tasks.filter((task) => {
             return task.columnId === column._id;
           });
           return (
             <Column
               key={column._id}
               column={column}
-              tasks={tasks}
-              setBoard={props.setBoard}
+              tasks={tasksList}
+              setBoard={setBoard}
             />
           );
         })}
-      {props.board && props.board.columns.length === 0 && <EmptyBoard />}
-      {props.access && (
+      {board && columns.length === 0 && <EmptyBoard />}
+      {access && (
         <p className="flex justify-center items-center w-full">
           You don't have the rights to access this board
         </p>
       )}
     </section>
   );
+};
+
+BoardSection.propTypes = {
+  access: PropTypes.bool,
+  board: PropTypes.shape({
+    columns: PropTypes.array,
+    tasks: PropTypes.array,
+  }),
+  setBoard: PropTypes.func,
 };
 
 export default BoardSection;

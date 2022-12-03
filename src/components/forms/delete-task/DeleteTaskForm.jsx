@@ -8,6 +8,7 @@ import Modal from "../../UI/Modal";
 import Backdrop from "../Backdrop/Backdrop";
 
 const ModalOverlay = (props) => {
+  console.log(props);
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
 
@@ -48,6 +49,7 @@ const ModalOverlay = (props) => {
 };
 
 const DeleteTaskForm = (props) => {
+  console.log(props);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(

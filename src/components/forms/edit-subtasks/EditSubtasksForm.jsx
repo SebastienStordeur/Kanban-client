@@ -9,6 +9,7 @@ import Button from "../../UI/Button";
 import DeleteTaskForm from "../delete-task/DeleteTaskForm";
 
 const ModalOverlay = (props) => {
+  console.log(props);
   const theme = useContext(ThemeContext);
   const [deleteTaskIsOpen, setDeleteTaskIsOpen] = useState(false);
 
@@ -20,20 +21,35 @@ const ModalOverlay = (props) => {
     <React.Fragment>
       <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg">
         <div className="flex justify-between items-center">
-          <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>
+          <h2
+            className={`${
+              theme.theme === "dark" ? "text-white" : "text-black"
+            } font-bold text-lg`}
+          >
             {props.task.title}
           </h2>
           <Button className="w-32 bg-red text-white" onClick={openDeleteForm}>
             Delete Task
           </Button>
         </div>
-        <p className={`${theme.theme === "dark" ? "text-white" : ""} text-sm my-6`}>{props.task.description}</p>
+        <p
+          className={`${
+            theme.theme === "dark" ? "text-white" : ""
+          } text-sm my-6`}
+        >
+          {props.task.description}
+        </p>
         {props.task.subtasks.map((subtask) => {
-          return <Subtask key={subtask.id} subtask={subtask} />;
+          return <Subtask key={subtask._id} subtask={subtask} />;
         })}
       </Modal>
       {deleteTaskIsOpen && (
-        <DeleteTaskForm id={props.task.id} title={props.task.title} onClick={openDeleteForm} onClose={props.onClick} />
+        <DeleteTaskForm
+          id={props.task.id}
+          title={props.task.title}
+          onClick={openDeleteForm}
+          onClose={props.onClick}
+        />
       )}
     </React.Fragment>
   );
@@ -42,7 +58,10 @@ const ModalOverlay = (props) => {
 const EditSubTasksForm = (props) => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
+      {ReactDOM.createPortal(
+        <Backdrop onClick={props.onClick} />,
+        document.getElementById("backdrop-root")
+      )}
       {ReactDOM.createPortal(
         <ModalOverlay task={props.task} onClick={props.onClick} />,
         document.getElementById("modal-root")

@@ -2,9 +2,10 @@ import axios from "axios";
 
 export function getBoardRequest(id, token, setBoard) {
   axios
-    .get(`http://localhost:8000/board/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+    .get(`http://localhost:8000/board/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
     .then((data) => {
-      console.log(data);
       return setBoard(data.data);
     })
     .catch((err) => console.log(err));

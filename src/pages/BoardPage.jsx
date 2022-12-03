@@ -34,7 +34,13 @@ const BoardPage = (props) => {
       <main id="main" className="flex h-[calc(100vh-64px)]">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
         {/* <EditTaskForm /> */}
-        <BoardSection board={board} setBoard={setBoard} access={accessDenied} />
+        {board && (
+          <BoardSection
+            board={board}
+            setBoard={setBoard}
+            access={accessDenied}
+          />
+        )}
       </main>
     </React.Fragment>
   );

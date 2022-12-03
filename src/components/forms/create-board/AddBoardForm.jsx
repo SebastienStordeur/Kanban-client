@@ -1,26 +1,22 @@
 import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
-
+import PropTypes from "prop-types";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
-
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
 import Backdrop from "../Backdrop/Backdrop";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
+import { AddBoardRequest } from "../../../services/requests/AddBoardRequest";
 
 const ModalOverlay = (props) => {
   const theme = useContext(ThemeContext);
   const auth = useContext(AuthContext);
-
   const boardInputRef = useRef(null);
-
   const [numberOfColumns, setNumberOfColumns] = useState(2);
-  const [columnsValues, setColumnsValue] = useState([{ title: "" }]);
-
+  const [columnsValues, setColumnsValue] = useState([]);
   let columnsArray = Array.from({ length: numberOfColumns });
 
   const createColumn = () => {
@@ -31,34 +27,19 @@ const ModalOverlay = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const columns = [];
-
     for (const [_, value] of Object.entries(columnsValues)) {
       columns.push(value);
     }
 
-    axios
-      .post(
-        "http://localhost:8000/board",
-        {
-          title: boardInputRef.current.value,
-          columns: columns,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
-      )
-      .then((board) => {
-        console.log(board);
-        props.onAdd((prev) => [...prev, board.data]);
-        props.onClick();
-      })
-      .catch((err) => console.error(err));
+    const newBoard = {
+      title: boardInputRef.current.value,
+      columns,
+    };
+
+    AddBoardRequest(newBoard, auth.token, props.onAdd, props.onClick);
   };
+
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form id="create-board-form" onSubmit={handleSubmit}>
@@ -119,6 +100,11 @@ const AddBoardForm = (props) => {
       )}
     </React.Fragment>
   );
+};
+
+AddBoardForm.propTypes = {
+  onClick: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
 export default AddBoardForm;

@@ -11,7 +11,6 @@ import Board from "./Board";
 const SidePanel = () => {
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
-
   const [boards, setBoards] = useState([]);
   const [addBoardIsOpen, setAddBoardIsOpen] = useState(false);
 
@@ -40,7 +39,7 @@ const SidePanel = () => {
             ALL BOARDS ({boards.length})
           </h2>
           {boards.map((board) => (
-            <Board board={board} key={board._id} />
+            <Board id={board._id} title={board.title} key={board._id} />
           ))}
           {auth.isAuthenticated && <AddBoard onClick={openAddBoardHandler} />}
         </div>

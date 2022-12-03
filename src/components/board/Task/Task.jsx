@@ -1,29 +1,26 @@
-import axios from "axios";
 import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 import EditSubTasksForm from "../../forms/edit-subtasks/EditSubtasksForm";
+import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
 
-const Task = (props) => {
+const Task = ({ task, setBoard }) => {
+  const { title, subtasks } = task;
   const { id } = useParams();
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
 
-  const completedTasks = props.task.subtasks.filter(
+  const completedTasks = subtasks.filter(
     (subtask) => subtask.isCompleted === true
   );
 
   const openTaskForm = () => {
     setEditTaskIsOpen((prevValue) => !prevValue);
     if (editTaskIsOpen) {
-      axios
-        .get(`http://localhost:8000/board/${id}`, {
-          headers: { Authorization: `Bearer ${auth.token}` },
-        })
-        .then((res) => props.setBoard(res.data))
-        .catch((err) => console.log(err));
+      getBoardRequest(id, auth.token, setBoard);
     }
   };
 
@@ -40,19 +37,30 @@ const Task = (props) => {
             theme.theme === "dark" ? "text-white" : "text-black"
           } tracking-wide text-sm`}
         >
-          {props.task.title}
+          {title}
         </h3>
-        {props.task.subtasks.length >= 1 && (
+        {subtasks.length >= 1 && (
           <p className="text-xs text-mediumGrey">
-            {completedTasks.length} on {props.task.subtasks.length} subtasks
+            {completedTasks.length} on {subtasks.length} subtasks
           </p>
         )}
       </article>
       {editTaskIsOpen && (
-        <EditSubTasksForm task={props.task} onClick={openTaskForm} />
+        <EditSubTasksForm task={task} onClick={openTaskForm} />
       )}
     </React.Fragment>
   );
+};
+
+Task.propTypes = {
+  task: PropTypes.shape({
+    _id: PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    columnId: PropTypes.string,
+    subtasks: PropTypes.array,
+  }),
+  setBoard: PropTypes.func,
 };
 
 export default React.memo(Task);

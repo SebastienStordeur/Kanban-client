@@ -2,10 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
 import { AuthContext } from "../../../store/auth-context";
-import { ThemeContext } from "../../../store/theme-context";
-
 import Input from "../../UI/Input";
 import Textarea from "../../UI/Textarea";
 import InputValidator from "../InputValidator";
@@ -15,21 +12,19 @@ import Modal from "../../UI/Modal";
 import Select from "./Select";
 import Backdrop from "../Backdrop/Backdrop";
 import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
+import ErrorMessage from "../ErrorMessage";
+import Title from "../Title";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
-  const theme = useContext(ThemeContext);
   const { id } = useParams();
   const token = auth.token;
-
   const titleInputRef = useRef();
   const descriptionInputRef = useRef();
-
   const [titleHasError, setTitleHasError] = useState(false);
   const [numberOfSubtasks, setNumberOfSubtasks] = useState(2);
-  const [subtasksValues, setSubtasksValue] = useState([{ title: "" }]);
+  const [subtasksValues, setSubtasksValue] = useState([]);
   const [columnId, setColumnId] = useState(props.board.columns[0]._id);
-
   let subtasksArray = Array.from({ length: numberOfSubtasks });
 
   const createSubtask = () => {
@@ -79,13 +74,7 @@ const ModalOverlay = (props) => {
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form onSubmit={handleSubmit}>
-        <h2
-          className={`${
-            theme.theme === "dark" ? "text-white" : "text-black"
-          } font-bold text-lg`}
-        >
-          Add New Task
-        </h2>
+        <Title>Add New Task</Title>
         <InputValidator>
           <Label htmlFor="title" className="font-bold text-xs mb-2">
             Title
@@ -95,9 +84,7 @@ const ModalOverlay = (props) => {
             id="title"
             ref={titleInputRef}
           />
-          {titleHasError && (
-            <p className="text-red font-bold text-sm">Can't be empty</p>
-          )}
+          {titleHasError && <ErrorMessage>Can't be empty</ErrorMessage>}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="description" className="font-bold text-xs mb-2">
