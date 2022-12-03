@@ -6,6 +6,7 @@ import BoardSection from "../components/board/BoardSection";
 import SidePanel from "../components/boardLists/SidePanel";
 import Header from "../components/layout/Header";
 import { AuthContext } from "../store/auth-context";
+import EditTaskForm from "../components/forms/edit-task/EditTaskForm";
 
 const BoardPage = (props) => {
   const { id } = useParams();
@@ -32,6 +33,7 @@ const BoardPage = (props) => {
       <Header board={board} setBoard={setBoard} access={accessDenied} />
       <main id="main" className="flex h-[calc(100vh-64px)]">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
+        {/* <EditTaskForm /> */}
         <BoardSection board={board} setBoard={setBoard} access={accessDenied} />
       </main>
     </React.Fragment>

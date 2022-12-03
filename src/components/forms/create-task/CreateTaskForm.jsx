@@ -33,7 +33,7 @@ const ModalOverlay = (props) => {
   let subtasksArray = Array.from({ length: numberOfSubtasks });
 
   const createSubtask = () => {
-    if (numberOfSubtasks >= 6) return;
+    if (numberOfSubtasks >= 4) return;
     setNumberOfSubtasks((prevValue) => prevValue + 1);
     subtasksArray.length++;
   };

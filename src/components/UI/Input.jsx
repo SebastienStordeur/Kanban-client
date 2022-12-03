@@ -12,12 +12,15 @@ const Input = forwardRef((props, ref) => {
       ref={ref}
       autoComplete="off"
       className={`${
-        theme.theme === "dark" ? "bg-darkGrey text-white placeholder:text-white" : "bg-white placeholder:text-black"
+        theme.theme === "dark"
+          ? "bg-darkGrey text-white placeholder:text-white"
+          : "bg-white placeholder:text-black"
       } px-2 border rounded-sm h-10 border-lines placeholder:text-sm text-sm placeholder:opacity-25 ${
         props.className || ""
       }`}
       placeholder={props.placeholder}
-      value={props.value}
+      /* value={props.value} */
+      defaultValue={props.value}
       onChange={props.onChange}
     />
   );

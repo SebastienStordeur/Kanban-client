@@ -3,50 +3,95 @@ import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import { ThemeContext } from "../../../store/theme-context";
+import { AuthContext } from "../../../store/auth-context";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import Modal from "../../UI/Modal";
 import Backdrop from "../Backdrop/Backdrop";
 import InputValidator from "../InputValidator";
 import Label from "../Label";
+import Title from "../Title";
 
 const ModalOverlay = (props) => {
-  console.log(props);
+  console.log("EDIT BOARD", props);
+  const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const { id } = useParams();
 
   const boardInputRef = useRef(props.board.title);
-  const [numberOfColumns, setNumberOfColumns] = useState(props.board.columns.length);
+  const [numberOfColumns, setNumberOfColumns] = useState(
+    props.board.columns.length
+  );
+
+  const [columns, setColumnsValue] = useState([]);
 
   let columnsArray = Array.from({ length: numberOfColumns });
+
+  const createColumn = () => {
+    if (numberOfColumns >= 4) return;
+    setNumberOfColumns((prev) => prev + 1);
+    columnsArray.length++;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.put(`http://localhost:8000/board/${id}`);
+
+    const boardUpdate = {
+      id,
+      title: boardInputRef.current.value,
+    };
+
+    console.log(boardUpdate);
+    /* axios.put(
+      `http://localhost:8000/board/${id}`,
+      {
+        id,
+        title: boardInputRef.current.value,
+        columns: [
+          { title: "test151", id: "6388bfff30d83d81317a9c54" },
+          { title: "TODO", id: "6388bfff30d83d81317a9c55" },
+        ],
+      },
+      {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      }
+    ); */
   };
+
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form onSubmit={handleSubmit}>
-        <h2 className={`${theme.theme === "dark" ? "text-white" : "text-black"} font-bold text-lg`}>Edit Board</h2>
+        <Title>Edit Board</Title>
         <InputValidator>
           <Label htmlFor="board-name">Board Name</Label>
-          <Input id="board-name" value={props.board.title} />
+          <Input
+            id="board-name"
+            value={props.board.title}
+            ref={boardInputRef}
+          />
         </InputValidator>
         <InputValidator>
           <Label htmlFor="">Board Columns</Label>
           {columnsArray.map((_, index) => {
-            console.log(props.board.columns[index].column);
-            const handleChange = (event) => {};
+            const handleChange = (event) => {
+              setColumnsValue((prev) => {
+                return { ...prev, [index]: { title: event.target.value } };
+              });
+            };
             return (
               <Input
                 className="mt-2"
                 placeholder="Column name"
                 key={index}
-                value={props.board.columns[index].column}
-                onChange={handleChange}
+                value={props.board.columns[index].title || ""}
+                /* onChange={handleChange} */
               />
             );
           })}
-          <Button className="bg-purple bg-opacity-10 mt-3 text-purple" /* onClick={createColumn} */>
+          <Button
+            className="bg-purple bg-opacity-10 mt-3 text-purple"
+            onClick={createColumn}
+          >
             + Add New Column
           </Button>
           <Button type="submit" className="bg-purple text-white mt-3">
@@ -61,9 +106,12 @@ const ModalOverlay = (props) => {
 const EditBoardForm = (props) => {
   return (
     <React.Fragment>
-      {ReactDOM.createPortal(<Backdrop onClick={props.onClick} />, document.getElementById("backdrop-root"))}
       {ReactDOM.createPortal(
-        <ModalOverlay onClick={props.onClick} board={props.board} />,
+        <Backdrop onClick={props.onClick} />,
+        document.getElementById("backdrop-root")
+      )}
+      {ReactDOM.createPortal(
+        <ModalOverlay /* onClick={props.onClick} */ board={props.board} />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>
