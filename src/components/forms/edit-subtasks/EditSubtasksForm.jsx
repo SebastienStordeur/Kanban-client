@@ -7,14 +7,20 @@ import Modal from "../../UI/Modal";
 import Backdrop from "../Backdrop/Backdrop";
 import Button from "../../UI/Button";
 import DeleteTaskForm from "../delete-task/DeleteTaskForm";
+import EditTaskForm from "../edit-task/EditTaskForm";
 
 const ModalOverlay = (props) => {
-  console.log(props);
+  console.log("props", props);
   const theme = useContext(ThemeContext);
   const [deleteTaskIsOpen, setDeleteTaskIsOpen] = useState(false);
+  const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
 
   const openDeleteForm = () => {
     setDeleteTaskIsOpen((prev) => !prev);
+  };
+
+  const openEditTaskForm = () => {
+    setEditTaskIsOpen((prev) => !prev);
   };
 
   return (
@@ -28,9 +34,14 @@ const ModalOverlay = (props) => {
           >
             {props.task.title}
           </h2>
-          <Button className="w-32 bg-red text-white" onClick={openDeleteForm}>
-            Delete Task
-          </Button>
+          <div className="flex">
+            <Button className="w-32 bg-red text-white" onClick={openDeleteForm}>
+              Delete Task
+            </Button>
+            <Button className="bg-purple text-white" onClick={openEditTaskForm}>
+              Edit Task
+            </Button>
+          </div>
         </div>
         <p
           className={`${
@@ -50,6 +61,9 @@ const ModalOverlay = (props) => {
           onClick={openDeleteForm}
           onClose={props.onClick}
         />
+      )}
+      {editTaskIsOpen && (
+        <EditTaskForm task={props.task} onClick={openEditTaskForm} />
       )}
     </React.Fragment>
   );

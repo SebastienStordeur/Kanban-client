@@ -7,9 +7,12 @@ const Textarea = forwardRef((props, ref) => {
   return (
     <textarea
       className={`${
-        theme.theme === "dark" ? "bg-darkGrey text-white placeholder:text-white" : "placeholder:text-black"
+        theme.theme === "dark"
+          ? "bg-darkGrey text-white placeholder:text-white"
+          : "placeholder:text-black"
       } h-28 p-2 border rounded-sm resize-none outline-none border-lines text-sm placeholder:text-sm placeholder:opacity-25`}
       id={props.id}
+      defaultValue={props.value}
       ref={ref}
       placeholder={props.placeholder}
     ></textarea>
@@ -20,6 +23,7 @@ Textarea.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
+  value: PropTypes.string,
 };
 
 export default Textarea;
