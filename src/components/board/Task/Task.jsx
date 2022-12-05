@@ -25,14 +25,14 @@ const Task = ({ task, setBoard }) => {
   }, [updateSubtasks]);
 
   const updateSubtasksRequest = () => {
-    axios
+    /*     axios
       .put(
         "http://localhost:8000/task/subtasks",
         { id, subtasks: updateSubtasks },
         { headers: { Authorization: `Bearer ${auth.token}` } }
       )
       .then((res) => console.log(err))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err)); */
   };
 
   const openTaskForm = () => {

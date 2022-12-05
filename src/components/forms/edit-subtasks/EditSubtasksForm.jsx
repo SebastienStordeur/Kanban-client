@@ -9,7 +9,7 @@ import EditTaskForm from "../edit-task/EditTaskForm";
 import Title from "../Title";
 
 const ModalOverlay = ({ task, onClick, setSubtasks }) => {
-  /* console.log("props", setSubtasks); */
+  console.log("props", onClick);
   const { _id, title, description, subtasks } = task;
   const theme = useContext(ThemeContext);
   const [deleteTaskIsOpen, setDeleteTaskIsOpen] = useState(false);

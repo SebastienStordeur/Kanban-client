@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useContext } from "react";
 import ReactDOM from "react-dom";
+import { useParams } from "react-router-dom";
+import { deleteTaskRequest } from "../../../services/requests/DeleteTaskRequest";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 import { Button, Modal } from "../../UI/index";
@@ -8,11 +10,13 @@ import Backdrop from "../Backdrop/Backdrop";
 
 const ModalOverlay = (props) => {
   console.log(props);
+  const { id } = useParams();
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
 
   const deleteTask = () => {
-    axios
+    deleteTaskRequest(id, props.id, auth.token, props.onClick, props.onClose);
+    /* axios
       .delete(`http://localhost:8000/task/${props.id}`, {
         params: { id: props.id },
         headers: { Authorization: `Bearer ${auth.token}` },
@@ -21,7 +25,7 @@ const ModalOverlay = (props) => {
         props.onClick();
         props.onClose();
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err)); */
   };
   return (
     <Modal className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 text-left mx-auto rounded-md z-20">
