@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = React.createContext({
   isAuthenticated: false,
@@ -22,5 +21,9 @@ export const AuthContextProvider = (props) => {
     token,
   };
 
-  return <AuthContext.Provider value={defaultValue}>{props.children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={defaultValue}>
+      {props.children}
+    </AuthContext.Provider>
+  );
 };

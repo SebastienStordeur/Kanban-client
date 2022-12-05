@@ -1,21 +1,13 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
-import Button from "../../UI/Button";
-import Input from "../../UI/Input";
-import Modal from "../../UI/Modal";
+import { Button, Input, Modal, Textarea } from "../../UI/index";
+import { InputValidator, Label, Title } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
-import InputValidator from "../InputValidator";
-import Label from "../Label";
-import Title from "../Title";
-import Textarea from "../../UI/Textarea";
 import { editTaskRequest } from "../../../services/requests/EditTaskRequest";
 
 const ModalOverlay = ({ task }) => {
   const { _id, title, description, columnId, subtasks } = task;
-  const { id } = useParams();
   const auth = useContext(AuthContext);
   const taskTitleRef = useRef(title);
   const descriptionInputRef = useRef(description);

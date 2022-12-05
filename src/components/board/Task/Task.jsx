@@ -5,21 +5,40 @@ import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 import EditSubTasksForm from "../../forms/edit-subtasks/EditSubtasksForm";
 import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
+import axios from "axios";
+import { useEffect } from "react";
 
 const Task = ({ task, setBoard }) => {
-  const { title, subtasks } = task;
+  let { title, subtasks } = task;
   const { id } = useParams();
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const [editTaskIsOpen, setEditTaskIsOpen] = useState(false);
+  const [updateSubtasks, setUpdateSubtasks] = useState(subtasks);
 
-  const completedTasks = subtasks.filter(
+  const completedTasks = task.subtasks.filter(
     (subtask) => subtask.isCompleted === true
   );
+
+  useEffect(() => {
+    console.log(updateSubtasks);
+  }, [updateSubtasks]);
+
+  const updateSubtasksRequest = () => {
+    axios
+      .put(
+        "http://localhost:8000/task/subtasks",
+        { id, subtasks: updateSubtasks },
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      )
+      .then((res) => console.log(err))
+      .catch((err) => console.error(err));
+  };
 
   const openTaskForm = () => {
     setEditTaskIsOpen((prevValue) => !prevValue);
     if (editTaskIsOpen) {
+      updateSubtasksRequest();
       getBoardRequest(id, auth.token, setBoard);
     }
   };
@@ -46,7 +65,11 @@ const Task = ({ task, setBoard }) => {
         )}
       </article>
       {editTaskIsOpen && (
-        <EditSubTasksForm task={task} onClick={openTaskForm} />
+        <EditSubTasksForm
+          task={task}
+          onClick={openTaskForm}
+          setSubtasks={setUpdateSubtasks}
+        />
       )}
     </React.Fragment>
   );

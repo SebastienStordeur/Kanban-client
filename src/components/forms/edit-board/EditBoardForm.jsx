@@ -3,18 +3,13 @@ import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
-import Button from "../../UI/Button";
-import Input from "../../UI/Input";
-import Modal from "../../UI/Modal";
+import { Button, Input, Modal } from "../../UI/index";
+import { InputValidator, Label, Title } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
-import InputValidator from "../InputValidator";
-import Label from "../Label";
-import Title from "../Title";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
   const { id } = useParams();
-
   const boardInputRef = useRef(props.board.title);
   const [numberOfColumns, setNumberOfColumns] = useState(
     props.board.columns.length

@@ -2,17 +2,12 @@ import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../../store/auth-context";
-import { ThemeContext } from "../../../store/theme-context";
-import Button from "../../UI/Button";
-import Input from "../../UI/Input";
-import Modal from "../../UI/Modal";
+import { Button, Input, Modal } from "../../UI/index";
+import { InputValidator, Label, Title } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
-import InputValidator from "../InputValidator";
-import Label from "../Label";
 import { AddBoardRequest } from "../../../services/requests/AddBoardRequest";
 
 const ModalOverlay = (props) => {
-  const theme = useContext(ThemeContext);
   const auth = useContext(AuthContext);
   const boardInputRef = useRef(null);
   const [numberOfColumns, setNumberOfColumns] = useState(2);
@@ -43,13 +38,7 @@ const ModalOverlay = (props) => {
   return (
     <Modal className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       <form id="create-board-form" onSubmit={handleSubmit}>
-        <h2
-          className={`${
-            theme.theme === "dark" ? "text-white" : "text-black"
-          } font-bold text-lg`}
-        >
-          Add New Board
-        </h2>
+        <Title>Add New Board</Title>
         <InputValidator>
           <Label htmlFor="board-name">Board Name</Label>
           <Input id="board-name" ref={boardInputRef} />

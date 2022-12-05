@@ -3,8 +3,7 @@ import React, { useContext } from "react";
 import ReactDOM from "react-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
-import Button from "../../UI/Button";
-import Modal from "../../UI/Modal";
+import { Button, Modal } from "../../UI/index";
 import Backdrop from "../Backdrop/Backdrop";
 
 const ModalOverlay = (props) => {

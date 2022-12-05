@@ -1,17 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Input from "../../UI/Input";
-import Modal from "../../UI/Modal";
-import Button from "../../UI/Button";
-import Label from "../Label";
-import InputValidator from "../InputValidator";
+import { Input, Modal, Button } from "../../UI/index.js";
+import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
 import { ThemeContext } from "../../../store/theme-context";
 import { formValidation } from "../../../services/FormValidations/EmailValidation";
 import { sendSignupRequest } from "../../../services/requests/SignupRequest";
-import Title from "../Title";
-import ErrorMessage from "../ErrorMessage";
 
 const SignupForm = () => {
   const theme = useContext(ThemeContext);

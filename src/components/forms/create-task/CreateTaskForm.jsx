@@ -3,17 +3,11 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
-import Input from "../../UI/Input";
-import Textarea from "../../UI/Textarea";
-import InputValidator from "../InputValidator";
-import Button from "../../UI/Button";
-import Label from "../Label";
-import Modal from "../../UI/Modal";
+import { Input, Button, Textarea, Modal } from "../../UI/index";
+import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import Select from "./Select";
 import Backdrop from "../Backdrop/Backdrop";
 import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
-import ErrorMessage from "../ErrorMessage";
-import Title from "../Title";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);

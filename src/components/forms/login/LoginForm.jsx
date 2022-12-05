@@ -3,14 +3,9 @@ import { Link } from "react-router-dom";
 import { formValidation } from "../../../services/FormValidations/EmailValidation";
 import { sendLoginRequest } from "../../../services/requests/LoginRequest";
 import { ThemeContext } from "../../../store/theme-context";
-import Input from "../../UI/Input";
-import Button from "../../UI/Button";
-import Modal from "../../UI/Modal";
-import InputValidator from "../InputValidator";
-import Label from "../Label";
+import { Button, Input, Input } from "../../UI/index";
+import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
-import ErrorMessage from "../ErrorMessage";
-import Title from "../Title";
 
 const LoginForm = () => {
   const theme = useContext(ThemeContext);
