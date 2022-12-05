@@ -29,7 +29,7 @@ const BoardSection = ({ access, board, setBoard }) => {
             />
           );
         })}
-      {board && columns.length === 0 && <EmptyBoard />}
+      {board && columns.length === 0 && <EmptyBoard board={board} />}
       {access && (
         <p className="flex justify-center items-center w-full">
           You don't have the rights to access this board

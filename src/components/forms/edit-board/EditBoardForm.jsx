@@ -6,6 +6,7 @@ import { AuthContext } from "../../../store/auth-context";
 import { Button, Input, Modal } from "../../UI/index";
 import { InputValidator, Label, Title } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
+import { editBoardRequest } from "../../../services/requests/EditBoardRequest";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
@@ -32,7 +33,10 @@ const ModalOverlay = (props) => {
       columns.push(value);
     }
 
-    axios.put(
+    const updateBoard = { id, title: boardInputRef.current.value, columns };
+
+    editBoardRequest(updateBoard, auth.token);
+    /*     axios.put(
       `http://localhost:8000/board/${id}`,
       {
         id,
@@ -42,7 +46,7 @@ const ModalOverlay = (props) => {
       {
         headers: { Authorization: `Bearer ${auth.token}` },
       }
-    );
+    ); */
   };
 
   return (

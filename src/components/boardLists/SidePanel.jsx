@@ -1,9 +1,8 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
+import { getBoardsRequest } from "../../services/requests/GetBoardsRequest";
 import { AuthContext } from "../../store/auth-context";
 import { ThemeContext } from "../../store/theme-context";
 import AddBoardForm from "../forms/create-board/AddBoardForm";
-
 import ThemeSwitch from "../themeSwitch/ThemeSwitch";
 import AddBoard from "./AddBoard";
 import Board from "./Board";
@@ -19,12 +18,7 @@ const SidePanel = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/board", {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      })
-      .then((response) => setBoards(response.data))
-      .catch((err) => console.log(err));
+    getBoardsRequest(auth.token, setBoards);
   }, []);
 
   return (

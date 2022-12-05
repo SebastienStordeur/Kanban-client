@@ -10,9 +10,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeContextProvider>
       <AuthContextProvider>
-        {/* <BoardContextProvider> */}
-        <App />
-        {/* </BoardContextProvider> */}
+        <BoardContextProvider>
+          <App />
+        </BoardContextProvider>
       </AuthContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>

@@ -1,13 +1,12 @@
 import React, { useContext, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { Input, Button, Textarea, Modal } from "../../UI/index";
 import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import Select from "./Select";
 import Backdrop from "../Backdrop/Backdrop";
-import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
+import { addTaskRequest } from "../../../services/requests/AddTaskRequest";
 
 const ModalOverlay = (props) => {
   const auth = useContext(AuthContext);
@@ -40,29 +39,17 @@ const ModalOverlay = (props) => {
       subtasks.push(value);
     }
 
-    axios
-      .post(
-        `http://localhost:8000/task/`,
-        {
-          id,
-          task: {
-            title: titleInputRef.current.value,
-            description: descriptionInputRef.current.value,
-            columnId: columnId,
-            subtasks,
-          },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
-          },
-        }
-      )
-      .then(() => {
-        getBoardRequest(id, token, props.setBoard);
-        props.onClick();
-      });
+    const taskRequest = {
+      id,
+      task: {
+        title: titleInputRef.current.value,
+        description: descriptionInputRef.current.value,
+        columnId: columnId,
+        subtasks,
+      },
+    };
+
+    addTaskRequest(taskRequest, token, props.setBoard, props.onClick);
   };
 
   return (

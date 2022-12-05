@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-
 import CreateTaskForm from "../forms/create-task/CreateTaskForm";
 import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
 import EditBoardForm from "../forms/edit-board/EditBoardForm";
