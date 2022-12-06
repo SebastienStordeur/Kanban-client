@@ -4,7 +4,7 @@ export function deleteTaskRequest(id, taskId, token, closeModal, update) {
   axios
     .delete(
       `http://localhost:8000/task/${id}`,
-      { id, taskId },
+      { data: { id, taskId } },
       { headers: { Authorization: `Bearer ${token}` } }
     )
     .then(() => {
