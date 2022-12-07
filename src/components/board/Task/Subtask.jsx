@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "../../../store/theme-context";
 
 const Subtask = ({ subtask, setSubtasks, index }) => {
-  /* const { _id, title, isCompleted } = subtask; */
   const theme = useContext(ThemeContext);
   let subtaskIsCompleted = subtask.isCompleted;
 

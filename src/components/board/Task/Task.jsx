@@ -7,6 +7,7 @@ import EditSubTasksForm from "../../forms/edit-subtasks/EditSubtasksForm";
 import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
 import axios from "axios";
 import { useEffect } from "react";
+import { editSubtasksRequest } from "../../../services/requests/EditSubtasksRequest";
 
 const Task = ({ task, setBoard }) => {
   let { title, subtasks } = task;
@@ -20,36 +21,10 @@ const Task = ({ task, setBoard }) => {
     (subtask) => subtask.isCompleted === true
   );
 
-  useEffect(() => {
-    console.log("updated subtasks", updateSubtasks);
-    axios
-      .put(
-        "http://localhost:8000/task/subtasks",
-        {
-          id: task._id,
-          subtasks: updateSubtasks,
-        },
-        { headers: { Authorization: `Bearer ${auth.token}` } }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
-  }, [updateSubtasks]);
-
-  const updateSubtasksRequest = () => {
-    /*     axios
-      .put(
-        "http://localhost:8000/task/subtasks",
-        { id, subtasks: updateSubtasks },
-        { headers: { Authorization: `Bearer ${auth.token}` } }
-      )
-      .then((res) => console.log(err))
-      .catch((err) => console.error(err)); */
-  };
-
   const openTaskForm = () => {
     setEditTaskIsOpen((prevValue) => !prevValue);
     if (editTaskIsOpen) {
-      updateSubtasksRequest();
+      editSubtasksRequest(task._id, updateSubtasks, auth.token);
       getBoardRequest(id, auth.token, setBoard);
     }
   };
