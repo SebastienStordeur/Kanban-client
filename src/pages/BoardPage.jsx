@@ -16,9 +16,10 @@ const BoardPage = (props) => {
     getBoardRequest(id, auth.token, setBoard, setAccessDenied);
   }, [id]);
 
+  console.log(board);
   return (
     <React.Fragment>
-      <Header board={board} setBoard={setBoard} access={accessDenied} />
+      {board && <Header board={board} setBoard={setBoard} />}
       <main id="main" className="flex h-[calc(100vh-64px)]">
         <SidePanel addBoardIsOpen={props.setBoardIsOpen} />
         {board && (

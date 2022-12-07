@@ -2,18 +2,18 @@ import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../../store/theme-context";
 import Option from "./Option";
 
-const Select = (props) => {
+const Select = ({ id, columns, setId }) => {
   const theme = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeValue, setActiveValue] = useState("");
 
   const openMenuHandler = () => {
-    setIsMenuOpen((prevValue) => !prevValue);
+    setIsMenuOpen((prev) => !prev);
   };
 
   const setActiveValueHandler = (value, id) => {
     setActiveValue(value);
-    props.setId(id);
+    setId(id);
   };
 
   return (
@@ -26,13 +26,13 @@ const Select = (props) => {
           className={`${
             theme.theme === "dark" ? "text-white" : "text-black"
           } text-sm`}
-          id={activeValue ? activeValue : props.id}
+          id={activeValue ? activeValue : id}
         >
-          {activeValue ? activeValue : props.columns[0].title}
+          {activeValue ? activeValue : columns[0].title}
         </label>
         <div className="absolute w-full left-0 top-0 bg-black">
           {isMenuOpen &&
-            props.columns.map((column) => (
+            columns.map((column) => (
               <Option
                 value={column.title}
                 activeValue={activeValue}

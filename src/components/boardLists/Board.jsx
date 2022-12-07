@@ -33,7 +33,7 @@ const Board = ({ id, title }) => {
 };
 
 Board.propTypes = {
-  _id: PropTypes.string,
+  id: PropTypes.string,
   title: PropTypes.string,
 };
 

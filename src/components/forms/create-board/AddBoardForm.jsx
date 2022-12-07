@@ -76,7 +76,7 @@ const ModalOverlay = (props) => {
 };
 
 const AddBoardForm = (props) => {
-  console.log(props);
+  /*  console.log(props.onClick); */
   return (
     <React.Fragment>
       {ReactDOM.createPortal(

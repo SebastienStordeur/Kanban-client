@@ -11,11 +11,6 @@ const SidePanel = () => {
   const auth = useContext(AuthContext);
   const theme = useContext(ThemeContext);
   const [boards, setBoards] = useState([]);
-  const [addBoardIsOpen, setAddBoardIsOpen] = useState(false);
-
-  const openAddBoardHandler = () => {
-    setAddBoardIsOpen((prev) => !prev);
-  };
 
   useEffect(() => {
     getBoardsRequest(auth.token, setBoards);
@@ -35,15 +30,12 @@ const SidePanel = () => {
           {boards.map((board) => (
             <Board id={board._id} title={board.title} key={board._id} />
           ))}
-          {auth.isAuthenticated && <AddBoard onClick={openAddBoardHandler} />}
+          {auth.isAuthenticated && <AddBoard onAdd={setBoards} />}
         </div>
         <div className="px-3">
           <ThemeSwitch />
         </div>
       </section>
-      {addBoardIsOpen && (
-        <AddBoardForm onClick={openAddBoardHandler} onAdd={setBoards} />
-      )}
     </React.Fragment>
   );
 };

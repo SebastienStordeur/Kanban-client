@@ -1,29 +1,19 @@
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import CreateTaskForm from "../forms/create-task/CreateTaskForm";
-import DeleteBoardForm from "../forms/delete-board/DeleteBoardForm";
-import EditBoardForm from "../forms/edit-board/EditBoardForm";
+import { CreateTaskForm, DeleteBoardForm, EditBoardForm } from "../forms";
 import Button from "../UI/Button";
 import Logo from "./logo/Logo";
 
-const Navbar = (props) => {
+const Navbar = ({ board, setBoard }) => {
   const { id } = useParams();
   const location = useLocation();
   const [addTaskIsOpen, setAddTaskIsOpen] = useState(false);
   const [editBoardIsOpen, setEditBoardIsOpen] = useState(false);
   const [deleteBoardIsOpen, setDeleteBoardIsOpen] = useState(false);
 
-  const openAddTaskForm = () => {
-    setAddTaskIsOpen((prev) => !prev);
-  };
-
-  const openEditBoard = () => {
-    setEditBoardIsOpen((prev) => !prev);
-  };
-
-  const openDeleteBoard = () => {
-    setDeleteBoardIsOpen((prev) => !prev);
+  const toggleForm = (toggle) => {
+    toggle((prev) => !prev);
   };
 
   return (
@@ -33,21 +23,23 @@ const Navbar = (props) => {
         <div className="flex items-center px-2">
           {location.pathname === `/board/${id}` && (
             <React.Fragment>
+              {board.columns.length > 0 && (
+                <Button
+                  className="w-40 bg-purple text-white hover:bg-opacity-50"
+                  onClick={() => toggleForm(setAddTaskIsOpen)}
+                >
+                  + Add New Task
+                </Button>
+              )}
               <Button
-                className="w-40 bg-purple text-white hover:bg-opacity-50"
-                onClick={openAddTaskForm}
-              >
-                + Add New Task
-              </Button>
-              <Button
-                className="w-20 px-2 ml-4 bg-purple text-white hover:bg-opacity-50"
-                onClick={openEditBoard}
+                className="w-24 px-2 ml-4 bg-purple text-white hover:bg-opacity-50"
+                onClick={() => toggleForm(setEditBoardIsOpen)}
               >
                 Edit Board
               </Button>
               <Button
                 className="bg-red text-white w-24 px-2 ml-4"
-                onClick={openDeleteBoard}
+                onClick={() => toggleForm(setDeleteBoardIsOpen)}
               >
                 Delete Board
               </Button>
@@ -56,16 +48,22 @@ const Navbar = (props) => {
         </div>
       </nav>
       {deleteBoardIsOpen && location.pathname === `/board/${id}` && (
-        <DeleteBoardForm onClick={openDeleteBoard} title={props.board.title} />
+        <DeleteBoardForm
+          onClick={() => toggleForm(setDeleteBoardIsOpen)}
+          title={board.title}
+        />
       )}
       {editBoardIsOpen && location.pathname === `/board/${id}` && (
-        <EditBoardForm board={props.board} onClick={openEditBoard} />
+        <EditBoardForm
+          board={board}
+          onClick={() => toggleForm(setEditBoardIsOpen)}
+        />
       )}
       {addTaskIsOpen && location.pathname === `/board/${id}` && (
         <CreateTaskForm
-          board={props.board}
-          setBoard={props.setBoard}
-          onClick={openAddTaskForm}
+          board={board}
+          setBoard={setBoard}
+          onClick={() => toggleForm(setAddTaskIsOpen)}
         />
       )}
     </React.Fragment>
@@ -73,7 +71,6 @@ const Navbar = (props) => {
 };
 
 Navbar.propTypes = {
-  access: PropTypes.bool,
   setBoard: PropTypes.func,
 };
 

@@ -5,8 +5,6 @@ import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
 import EditSubTasksForm from "../../forms/edit-subtasks/EditSubtasksForm";
 import { getBoardRequest } from "../../../services/requests/GetBoardRequest";
-import axios from "axios";
-import { useEffect } from "react";
 import { editSubtasksRequest } from "../../../services/requests/EditSubtasksRequest";
 
 const Task = ({ task, setBoard }) => {

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import ReactDOM from "react-dom";
 import { useParams } from "react-router-dom";
@@ -36,17 +35,6 @@ const ModalOverlay = (props) => {
     const updateBoard = { id, title: boardInputRef.current.value, columns };
 
     editBoardRequest(updateBoard, auth.token);
-    /*     axios.put(
-      `http://localhost:8000/board/${id}`,
-      {
-        id,
-        title: boardInputRef.current.value,
-        columns: columns,
-      },
-      {
-        headers: { Authorization: `Bearer ${auth.token}` },
-      }
-    ); */
   };
 
   return (

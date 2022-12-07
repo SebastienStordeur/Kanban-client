@@ -1,6 +1,5 @@
 import React, { forwardRef, useContext } from "react";
 import PropTypes from "prop-types";
-
 import { ThemeContext } from "../../store/theme-context";
 
 const Input = forwardRef((props, ref) => {

@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../store/auth-context";
 import { ThemeContext } from "../../../store/theme-context";
-
-import Button from "../../UI/Button";
-import Modal from "../../UI/Modal";
+import { Button, Modal } from "../../UI";
 import Backdrop from "../Backdrop/Backdrop";
 import { deleteBoardRequest } from "../../../services/requests/DeleteBoardRequest";
 
