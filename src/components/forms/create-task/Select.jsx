@@ -3,6 +3,7 @@ import { ThemeContext } from "../../../store/theme-context";
 import Option from "./Option";
 
 const Select = ({ id, columns, setId }) => {
+  console.log(columns);
   const theme = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeValue, setActiveValue] = useState("");

@@ -7,7 +7,7 @@ import Backdrop from "../Backdrop/Backdrop";
 import { editTaskRequest } from "../../../services/requests/EditTaskRequest";
 import Select from "../create-task/Select";
 
-const ModalOverlay = ({ task }) => {
+const ModalOverlay = ({ task, columns }) => {
   const { _id, title, description, columnId, subtasks } = task;
   const auth = useContext(AuthContext);
   const taskTitleRef = useRef(title);
@@ -89,7 +89,7 @@ const ModalOverlay = ({ task }) => {
           >
             + Add New Subtask
           </Button>
-          {/* <Select columns={} setId={setColId} id={_id} */}
+          <Select columns={columns} setId={setColId} id={_id} />
           <Button type="submit" className="bg-purple text-white mt-3">
             Update Board
           </Button>
@@ -108,7 +108,7 @@ const EditTaskForm = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay task={props.task} />,
+        <ModalOverlay task={props.task} columns={props.columns} />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>

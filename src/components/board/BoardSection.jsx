@@ -24,6 +24,7 @@ const BoardSection = ({ access, board, setBoard }) => {
             <Column
               key={column._id}
               column={column}
+              columns={columns}
               tasks={tasksList}
               setBoard={setBoard}
             />
