@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import { ThemeContext } from "../../../store/theme-context";
 
 const Subtask = ({ subtask, setSubtasks, index }) => {
-  const { _id, title, isCompleted } = subtask;
+  /* const { _id, title, isCompleted } = subtask; */
   const theme = useContext(ThemeContext);
-  let subtaskIsCompleted = isCompleted;
+  let subtaskIsCompleted = subtask.isCompleted;
 
   const updateSubtask = async () => {
-    isCompleted = !isCompleted;
-    /*     console.log(isCompleted);
-    setSubtasks((prev) => ({
-      ...prev,
-      [index]: ...prev, isCompleted,
-    })); */
+    subtaskIsCompleted = !subtask.isCompleted;
+    setSubtasks((sub) =>
+      sub.map((item, i) => {
+        return i === index
+          ? { ...item, isCompleted: subtaskIsCompleted }
+          : item;
+      })
+    );
   };
 
   return (
@@ -24,10 +26,10 @@ const Subtask = ({ subtask, setSubtasks, index }) => {
     >
       <input
         type="checkbox"
-        defaultChecked={isCompleted}
+        defaultChecked={subtask.isCompleted}
         onChange={updateSubtask}
       />
-      <h3 className="text-xs ml-4">{title}</h3>
+      <h3 className="text-xs ml-4">{subtask.title}</h3>
     </article>
   );
 };

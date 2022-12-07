@@ -21,7 +21,18 @@ const Task = ({ task, setBoard }) => {
   );
 
   useEffect(() => {
-    console.log(updateSubtasks);
+    console.log("updated subtasks", updateSubtasks);
+    axios
+      .put(
+        "http://localhost:8000/task/subtasks",
+        {
+          id: task._id,
+          subtasks: updateSubtasks,
+        },
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   }, [updateSubtasks]);
 
   const updateSubtasksRequest = () => {

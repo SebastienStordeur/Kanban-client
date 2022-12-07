@@ -17,18 +17,6 @@ const ModalOverlay = (props) => {
 
   const deleteBoard = () => {
     deleteBoardRequest(id, auth.token, navigate);
-    /*     axios
-      .delete(`http://localhost:8000/board/${id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${auth.token}`,
-        },
-      })
-      .then(() => {
-        board.getBoards();
-        navigate("/");
-      })
-      .catch((err) => console.error(err)); */
   };
 
   return (
