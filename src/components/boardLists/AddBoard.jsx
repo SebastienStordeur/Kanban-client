@@ -18,7 +18,7 @@ const AddBoard = (props) => {
       >
         <img src={board} alt="" className="text-purple" />
         <h2 className="font-bold ml-5">+ Create New Board</h2>
-      </div>{" "}
+      </div>
       {addBoardIsOpen && (
         <AddBoardForm onClick={toggleFormHandler} onAdd={props.onAdd} />
       )}

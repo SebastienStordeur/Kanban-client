@@ -34,7 +34,7 @@ const ModalOverlay = (props) => {
 
     const updateBoard = { id, title: boardInputRef.current.value, columns };
 
-    editBoardRequest(updateBoard, auth.token);
+    editBoardRequest(updateBoard, auth.token, props.onClick, props.setBoard);
   };
 
   return (
@@ -101,7 +101,11 @@ const EditBoardForm = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay board={props.board} />,
+        <ModalOverlay
+          onClick={props.onClick}
+          setBoard={props.setBoard}
+          board={props.board}
+        />,
         document.getElementById("modal-root")
       )}
     </React.Fragment>

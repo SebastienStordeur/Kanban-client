@@ -57,6 +57,7 @@ const Navbar = ({ board, setBoard }) => {
         <EditBoardForm
           board={board}
           onClick={() => toggleForm(setEditBoardIsOpen)}
+          setBoard={setBoard}
         />
       )}
       {addTaskIsOpen && location.pathname === `/board/${id}` && (

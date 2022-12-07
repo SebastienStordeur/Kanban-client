@@ -22,7 +22,7 @@ const Task = ({ task, setBoard }) => {
   const openTaskForm = () => {
     setEditTaskIsOpen((prevValue) => !prevValue);
     if (editTaskIsOpen) {
-      editSubtasksRequest(task._id, updateSubtasks, auth.token);
+      editSubtasksRequest(task._id, updateSubtasks, auth.token, id, setBoard);
       getBoardRequest(id, auth.token, setBoard);
     }
   };

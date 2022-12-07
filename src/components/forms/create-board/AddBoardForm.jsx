@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { AuthContext } from "../../../store/auth-context";
 import { Button, Input, Modal } from "../../UI/index";
-import { InputValidator, Label, Title } from "../index";
+import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
 import { AddBoardRequest } from "../../../services/requests/AddBoardRequest";
 
@@ -12,6 +12,7 @@ const ModalOverlay = (props) => {
   const boardInputRef = useRef(null);
   const [numberOfColumns, setNumberOfColumns] = useState(2);
   const [columnsValues, setColumnsValue] = useState([]);
+  const [titleError, setTitleError] = useState(false);
   let columnsArray = Array.from({ length: numberOfColumns });
 
   const createColumn = () => {
@@ -32,7 +33,13 @@ const ModalOverlay = (props) => {
       columns,
     };
 
-    AddBoardRequest(newBoard, auth.token, props.onAdd, props.onClick);
+    AddBoardRequest(
+      newBoard,
+      auth.token,
+      props.onAdd,
+      props.onClick,
+      setTitleError
+    );
   };
 
   return (
@@ -42,6 +49,7 @@ const ModalOverlay = (props) => {
         <InputValidator>
           <Label htmlFor="board-name">Board Name</Label>
           <Input id="board-name" ref={boardInputRef} />
+          {titleError && <ErrorMessage>Can't be empty</ErrorMessage>}
         </InputValidator>
         <InputValidator>
           <Label htmlFor="">Board Columns</Label>
@@ -76,7 +84,6 @@ const ModalOverlay = (props) => {
 };
 
 const AddBoardForm = (props) => {
-  /*  console.log(props.onClick); */
   return (
     <React.Fragment>
       {ReactDOM.createPortal(

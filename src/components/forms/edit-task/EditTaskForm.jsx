@@ -5,6 +5,7 @@ import { Button, Input, Modal, Textarea } from "../../UI/index";
 import { InputValidator, Label, Title } from "../index";
 import Backdrop from "../Backdrop/Backdrop";
 import { editTaskRequest } from "../../../services/requests/EditTaskRequest";
+import Select from "../create-task/Select";
 
 const ModalOverlay = ({ task }) => {
   const { _id, title, description, columnId, subtasks } = task;
@@ -88,6 +89,7 @@ const ModalOverlay = ({ task }) => {
           >
             + Add New Subtask
           </Button>
+          {/* <Select columns={} setId={setColId} id={_id} */}
           <Button type="submit" className="bg-purple text-white mt-3">
             Update Board
           </Button>
@@ -98,6 +100,7 @@ const ModalOverlay = ({ task }) => {
 };
 
 const EditTaskForm = (props) => {
+  console.log(props);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(

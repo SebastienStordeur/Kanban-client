@@ -10,6 +10,6 @@ export function getBoardRequest(id, token, setBoard, setAccessDenied) {
     })
     .catch((err) => {
       console.error(err);
-      if (err.response.status === 403) setAccessDenied(true);
+      if (err.response.status === 403 && setAccessDenied) setAccessDenied(true);
     });
 }

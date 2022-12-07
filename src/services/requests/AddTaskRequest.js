@@ -19,5 +19,8 @@ export function addTaskRequest(request, token, setBoard, refresh) {
     .then(() => {
       getBoardRequest(request.id, token, setBoard);
       refresh();
+    })
+    .catch((err) => {
+      console.error(err);
     });
 }
