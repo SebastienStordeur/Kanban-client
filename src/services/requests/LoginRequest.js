@@ -4,7 +4,7 @@ export function sendLoginRequest(email, password, setError) {
   try {
     axios
       .post(
-        "http://localhost:8000/user/login",
+        "https://super-clam-lingerie.cyclic.app//user/login",
         { email, password },
         { headers: { "Content-Type": "application/json" } }
       )

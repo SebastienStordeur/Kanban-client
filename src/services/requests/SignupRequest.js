@@ -9,7 +9,7 @@ export function sendSignupRequest(
 ) {
   axios
     .post(
-      "http://localhost:8000/user/signup",
+      "https://super-clam-lingerie.cyclic.app/user/signup",
       { email, password },
       { headers: { "Content-Type": "application/json" } }
     )

@@ -4,7 +4,7 @@ import { getBoardRequest } from "./GetBoardRequest";
 export function editBoardRequest(request, token, close, setBoard) {
   axios
     .put(
-      `http://localhost:8000/board/${request.id}`,
+      `https://super-clam-lingerie.cyclic.app/board/${request.id}`,
       {
         id: request.id,
         title: request.title,

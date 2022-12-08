@@ -3,7 +3,7 @@ import axios from "axios";
 export function AddBoardRequest(request, token, onAdd, onClick, setError) {
   axios
     .post(
-      "http://localhost:8000/board",
+      "https://super-clam-lingerie.cyclic.app/board",
       {
         title: request.title,
         columns: request.columns,

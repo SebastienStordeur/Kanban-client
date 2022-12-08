@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function deleteBoardRequest(id, token, navigate) {
   axios
-    .delete(`http://localhost:8000/board/${id}`, {
+    .delete(`https://super-clam-lingerie.cyclic.app/board/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(() => {

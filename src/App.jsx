@@ -19,10 +19,14 @@ const App = () => {
       <Suspense fallback="">
         <Routes>
           {auth.isAuthenticated && <Route path="/" element={<Home />} />}
+          {!auth.isAuthenticated && (
+            <Route path="/" element={<Navigate to="/signup" />} />
+          )}
           {!auth.isAuthenticated && <Route path="/login" element={<Login />} />}
           {!auth.isAuthenticated && (
             <Route path="/signup" element={<Signup />} />
           )}
+
           {auth.isAuthenticated && (
             <Route path="/board/:id" element={<BoardPage />} />
           )}

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import { ThemeContext } from "../../../store/theme-context";
 import Subtask from "../../board/Task/Subtask";
-import { Modal, Button } from "../../UI/index";
+import { Modal, Button } from "../../UI";
 import Backdrop from "../Backdrop/Backdrop";
 import DeleteTaskForm from "../delete-task/DeleteTaskForm";
 import Title from "../Title";

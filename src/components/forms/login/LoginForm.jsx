@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { formValidation } from "../../../services/FormValidations/EmailValidation";
 import { sendLoginRequest } from "../../../services/requests/LoginRequest";
 import { ThemeContext } from "../../../store/theme-context";
-import { Button, Input, Input } from "../../UI/index";
+import { Button, Input, Modal } from "../../UI";
 import { InputValidator, Label, Title, ErrorMessage } from "../index";
 import ThemeSwitch from "../../themeSwitch/ThemeSwitch";
 

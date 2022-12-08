@@ -4,7 +4,7 @@ import { getBoardRequest } from "./GetBoardRequest";
 export function editSubtasksRequest(id, subtasks, token, boardId, setBoard) {
   axios
     .put(
-      "http://localhost:8000/task/subtasks",
+      "https://super-clam-lingerie.cyclic.app/task/subtasks",
       { id, subtasks },
       { headers: { Authorization: `Bearer ${token}` } }
     )

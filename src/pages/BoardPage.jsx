@@ -16,7 +16,6 @@ const BoardPage = (props) => {
     getBoardRequest(id, auth.token, setBoard, setAccessDenied);
   }, [id]);
 
-  console.log(board);
   return (
     <React.Fragment>
       {board && <Header board={board} setBoard={setBoard} />}

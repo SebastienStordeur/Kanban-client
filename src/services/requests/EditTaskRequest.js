@@ -3,7 +3,7 @@ import axios from "axios";
 export function editTaskRequest(id, request, token) {
   axios
     .put(
-      "http://localhost:8000/task",
+      "https://super-clam-lingerie.cyclic.app/task",
       { id, task: request },
       { headers: { Authorization: `Bearer ${token}` } }
     )

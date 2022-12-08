@@ -19,6 +19,7 @@ export function addTaskRequest(request, token, setBoard, refresh) {
     .then(() => {
       getBoardRequest(request.id, token, setBoard);
       refresh();
+      //probleme ajout de tache ne s affiche pas directement
     })
     .catch((err) => {
       console.error(err);

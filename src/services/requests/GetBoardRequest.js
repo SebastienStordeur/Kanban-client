@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function getBoardRequest(id, token, setBoard, setAccessDenied) {
   axios
-    .get(`http://localhost:8000/board/${id}`, {
+    .get(`https://super-clam-lingerie.cyclic.app//board/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((data) => {
